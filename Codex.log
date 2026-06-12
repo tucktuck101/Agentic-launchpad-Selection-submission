@@ -5,3 +5,4 @@
 2026-06-12T02:55:30Z Added a logging rule to `Agents.md` requiring timestamped one-line entries in `Codex.log`.
 2026-06-12T03:13:12Z Reviewed repository setup and identified missing Node/npm, available Python/Docker, uncommitted baseline files, and missing Git identity.
 2026-06-12T03:25:09Z Added `README.md` and `LICENSE` to satisfy basic repository setup.
+2026-06-12T03:29:02Z Updated `Agents.md` to treat unexpected file changes as user edits unless they block the current task.

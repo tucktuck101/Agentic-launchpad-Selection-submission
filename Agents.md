@@ -18,6 +18,8 @@ This repository is an Agentic Launchpad selection submission workspace.
 - Keep changes ASCII unless a file already uses non-ASCII.
 - Use `apply_patch` for manual file edits.
 - Do not overwrite user changes unless explicitly asked.
+- Treat unexpected changes to files you did not modify as direct user edits.
+- Leave user edits alone unless they directly prevent the current task from being completed.
 - Avoid touching generated or reference material unless the task requires it.
 
 ## Workflow Hints
