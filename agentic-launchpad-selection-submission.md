@@ -5,7 +5,7 @@
 Technology chosen: Github actions
 Learning task time spent:
 Aim for around 60 minutes. Extra time is optional and will not earn extra points.
-Goal: Build a basic CI/CD pipeline for this Repo that does a few basic Checks. 
+Goal: Build a basic CI/CD pipeline for this Repo that performs Lint checks.
 What I tried:
 What worked:
 What did not work yet:
