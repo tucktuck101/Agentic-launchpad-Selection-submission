@@ -28,6 +28,14 @@ This repository is an Agentic Launchpad selection submission workspace.
 - When asked to make documentation changes, keep wording close to the source unless the user wants a rewrite.
 - When asked to create submission content, match the template headings and keep the answers concrete.
 
+## Challenge One Notes
+
+- Challenge one uses GitHub Actions as the selected topic.
+- Capture GitHub Actions challenge-one questions and answers in `challenge_one/codex_notes.md`.
+- Only add entries for questions related to the first challenge and GitHub Actions.
+- Format each entry with the user's question followed by the assistant's response.
+- Append new entries instead of rewriting prior notes unless the user asks for cleanup.
+
 ## Logging
 
 - Record each meaningful step in `Codex.log` as a single line.
