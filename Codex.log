@@ -4,3 +4,4 @@
 2026-06-12T02:55:30Z Created `Agents.md` to guide future Codex work in this repo and marked `Original_Files/` as read-only.
 2026-06-12T02:55:30Z Added a logging rule to `Agents.md` requiring timestamped one-line entries in `Codex.log`.
 2026-06-12T03:13:12Z Reviewed repository setup and identified missing Node/npm, available Python/Docker, uncommitted baseline files, and missing Git identity.
+2026-06-12T03:25:09Z Added `README.md` and `LICENSE` to satisfy basic repository setup.
