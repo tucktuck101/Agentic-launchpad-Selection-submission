@@ -17,6 +17,12 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 
 Python and Docker can be used for the API script task. The Node-based tasks require Node.js and npm before their install, test, or dev commands can run.
 
+Install project requirements on Debian/Ubuntu with:
+
+```bash
+./scripts/install-requirements.sh
+```
+
 Before committing work, configure Git identity locally:
 
 ```bash

@@ -1,85 +1,19 @@
-# Repository Requirements
+# Requirements for scripts/install-requirements.sh
+#
+# System packages are installed with apt on Debian/Ubuntu systems.
+# Node app dependencies are installed from each app's package.json.
 
-This project is a challenge workspace with multiple small apps. It does not have one single package install at the repository root.
+[apt]
+git
+python3
+docker.io
+nodejs
+npm
 
-## System Tools
+[npm]
+launchpad-code-review-app/code-review-app
+launchpad-failing-tests-app/failing-tests-app
 
-- Git 2.43.0 or newer recommended
-- Python 3.12 or newer
-- Docker 28 or newer, optional for the API script task
-- Node.js, required for the Express and React tasks
-- npm, required for the Express and React tasks
-
-## Current Environment Check
-
-- Git is installed.
-- Python 3.12.3 is installed.
-- Docker is installed.
-- Node.js is not currently installed in this shell.
-- npm is not currently installed in this shell.
-
-## Task-Specific Installs
-
-### Code Review App
-
-Location: `launchpad-code-review-app/code-review-app/`
-
-Requires Node.js and npm.
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run the app:
-
-```bash
-npm run dev
-```
-
-Dependencies are declared in that folder's `package.json`.
-
-### Failing Tests App
-
-Location: `launchpad-failing-tests-app/failing-tests-app/`
-
-Requires Node.js and npm.
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Run tests:
-
-```bash
-npm test
-```
-
-Dependencies are declared in that folder's `package.json`.
-
-### API Script Server
-
-Location: `launchpad-api-script-server/api-script-server/`
-
-Requires Python 3. No third-party Python packages are required by the provided server.
-
-Run without Docker:
-
-```bash
-python3 server.py
-```
-
-Or run with Docker:
-
-```bash
-docker build -t moon-market-api .
-docker run --rm -p 5050:5050 moon-market-api
-```
-
-## Notes
-
-- `Original_Files/` is reference material only and should not be modified.
-- Node dependencies should be installed inside each app folder, not at the repository root.
+[python]
+# The provided API server uses only the Python standard library.
+launchpad-api-script-server/api-script-server
