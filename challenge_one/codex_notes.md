@@ -77,3 +77,37 @@ Security checks in CI/CD are often grouped into separate jobs so each type of ri
 - Permissions and workflow hardening: checks whether CI jobs use least-privilege tokens, pinned actions, protected environments, and required approvals.
 
 For this challenge, the most realistic first security job would be dependency scanning or secret scanning because those are useful, easy to explain, and fit naturally into GitHub Actions.
+
+### Question
+
+so i know a common toolstack for CI/CD pipelines is Github actions and ArgoCD. what i want to know is when it comes to building CI/CD piplelines, whats considered a good baseline or best practice?
+
+### Response
+
+A good CI/CD baseline is usually built around one idea: every change should be validated automatically before it reaches users, and deployments should be repeatable, visible, and reversible.
+
+For a GitHub Actions plus ArgoCD setup, a common best-practice split is:
+
+- GitHub Actions handles CI: linting, testing, security checks, building artifacts, and publishing images.
+- ArgoCD handles CD: watching Git for deployment manifests and syncing the desired state into Kubernetes.
+
+Good baseline practices include:
+
+- Run checks on pull requests: lint, tests, builds, and security checks should run before code is merged.
+- Keep jobs separated by responsibility: examples include `markdown-lint`, `python-lint`, `javascript-lint`, `unit-tests`, `security-scan`, and `build-image`.
+- Use branch protection: require important checks to pass before merging to the default branch.
+- Build once, promote the same artifact: avoid rebuilding different artifacts for staging and production. Build an image once, tag it clearly, and promote that image through environments.
+- Use Git as the source of truth: especially with ArgoCD, deployment state should come from version-controlled manifests or Helm/Kustomize config.
+- Keep CI and CD credentials separate: CI may publish artifacts, while CD should have only the access needed to deploy.
+- Use least-privilege permissions: GitHub Actions workflows should set narrow `permissions`, and secrets should be limited to jobs that need them.
+- Pin important dependencies: pin action versions and runtime versions where practical so the pipeline is repeatable.
+- Cache dependencies carefully: use caching to speed up builds, but avoid caching secrets or untrusted outputs.
+- Add security checks early: dependency scanning, secret scanning, static code scanning, and container scanning are common baseline jobs.
+- Make failures easy to debug: use clear job names, focused steps, readable logs, and uploaded reports when useful.
+- Separate environments: use dev, staging, and production environments with different approvals or gates.
+- Require production approval: production deployments often need a manual approval, protected environment, or release process.
+- Support rollback: the team should know how to revert a deployment by rolling back Git state, image tags, or ArgoCD application history.
+- Keep pipelines fast: the required PR checks should be useful but not painfully slow. Longer scans can run on schedule or before release.
+- Document the current state: explain what workflows exist, what triggers them, what each job does, what secrets are required, and how to debug failures.
+
+For this challenge repo, a strong baseline would start with a `ci.yml` workflow that runs separate jobs for Markdown checks, Python checks, JavaScript checks, and eventually tests/security scans. If the project later had a deployable Kubernetes app, ArgoCD would be introduced after CI builds and publishes a deployable artifact.
