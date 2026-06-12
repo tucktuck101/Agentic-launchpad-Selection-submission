@@ -35,6 +35,7 @@ This repository is an Agentic Launchpad selection submission workspace.
 - Only add entries for questions related to the first challenge and GitHub Actions.
 - Format each entry with the user's question followed by the assistant's response.
 - Append new entries instead of rewriting prior notes unless the user asks for cleanup.
+- To conserve chat tokens, write the full response in `challenge_one/codex_notes.md` and keep the chat reply to a short confirmation or pointer unless the user asks for the full answer in chat.
 
 ## Logging
 
