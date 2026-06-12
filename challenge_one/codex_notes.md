@@ -338,27 +338,29 @@ flowchart TD
     D -- Yes --> E[PR remains eligible for normal review and merge]
 
     D -- No --> F[Upload failure context: logs, test output, changed files]
-    F --> G{Is AI repair allowed?}
+    F --> G[Preflight: check PR trust level and branch source]
+    G --> H{Is write-capable AI repair allowed?}
 
-    G -- No, untrusted fork or unsafe context --> H[Agent posts diagnosis only]
-    H --> I[Human developer decides what to do]
+    H -- No, untrusted fork or unsafe context --> I[Read-only agent posts diagnosis only]
+    I --> J[Human developer decides what to do]
 
-    G -- Yes, trusted branch or maintainer approved --> J[Human approval gate: allow AI write attempt]
-    J --> K[AI agent checks out a repair branch]
-    K --> L[AI agent reads logs and edits code or tests]
-    L --> M[Run targeted tests again]
-    M --> N{Did the AI fix pass verification?}
+    H -- Yes, trusted branch and maintainer approved --> K[Human approval gate: allow AI repair attempt]
+    K --> L[Check out trusted automation scripts]
+    L --> M[Check out PR worktree on repair branch]
+    M --> N[AI agent reads logs and edits code or tests]
+    N --> O[Run targeted tests again]
+    O --> P{Did the AI fix pass verification?}
 
-    N -- No --> O[Post summary: attempted fix failed]
-    O --> I
+    P -- No --> Q[Post summary: attempted fix failed]
+    Q --> J
 
-    N -- Yes --> P[Open AI-generated fix pull request]
-    P --> Q[Human review gate: inspect code and behavior]
-    Q --> R{Approved by human?}
+    P -- Yes --> R[Write-capable job applies verified patch and opens fix PR]
+    R --> S[Human review gate: inspect code and behavior]
+    S --> T{Approved by human?}
 
-    R -- No --> S[Request changes or close AI fix PR]
-    R -- Yes --> T[Merge fix after required CI passes]
-    T --> U[Original PR or main branch benefits from verified fix]
+    T -- No --> U[Request changes or close AI fix PR]
+    T -- Yes --> V[Merge fix after required CI passes]
+    V --> W[Original PR or main branch benefits from verified fix]
 ```
 
 #### What Is Happening At Each Stage?
@@ -387,31 +389,47 @@ The AI agent needs useful context. This can include:
 - Package files like `package.json`.
 - Project instructions such as `README.md` or `Agents.md`.
 
-5. The workflow checks whether AI repair is allowed.
+5. A preflight job checks whether AI repair is allowed.
 
-This is a safety decision. A pull request from a fork or unknown contributor might contain malicious code. In that case, the safest option is for the AI to only post a diagnosis. The workflow should not give write permissions or secrets to untrusted code.
+This is a safety decision. A pull request from a fork or unknown contributor might contain malicious code. In that case, the safest option is for the AI to only post a diagnosis. The workflow should not give write permissions, secrets, or trusted automation privileges to untrusted code.
 
-6. Human approval gate before AI writes code.
+The preflight job should check things like:
 
-If the AI agent is going to push commits or open a fix pull request, a human maintainer should approve that action first. This can be done with a manual `workflow_dispatch` trigger, a comment command like `/ai-repair`, or a protected GitHub Environment that requires approval before the write job runs.
+- Whether the pull request comes from the same repository or from a fork.
+- The author's relationship to the repository.
+- The base branch and target branch.
+- Whether the branch is already an AI-generated branch such as `ai/*`.
+- Whether a maintainer explicitly requested the AI repair.
 
-7. AI agent attempts the fix.
+6. Untrusted changes get diagnosis-only mode.
 
-The agent checks out a new branch, reads the logs and relevant files, then edits code or tests. The goal is not to "make the error disappear" at any cost. The goal is to make the implementation and tests agree with the intended behavior.
+Diagnosis-only mode means the AI can summarize the failure and suggest next steps, but it cannot push commits or open a repair branch. This keeps the workflow helpful without giving write access to unsafe code.
 
-8. GitHub Actions verifies the attempted fix.
+7. Human approval gate before the AI repair attempt.
+
+If the AI agent is going to use AI secrets, spend AI budget, or generate an automated repair patch, a human maintainer should approve that action first. This can be done with a manual `workflow_dispatch` trigger, a comment command like `/ai-repair`, or a protected GitHub Environment that requires approval before the AI job runs.
+
+8. The workflow checks out trusted automation separately from the pull request.
+
+This is important. A privileged job should not run scripts that came from the pull request branch. Instead, the workflow should run the agent orchestration script from a trusted branch, pinned action, or separate automation repository. The pull request code should be treated as the worktree to inspect and edit, not as the source of the workflow's trusted logic.
+
+9. AI agent attempts the fix in a separate worktree.
+
+The agent reads the logs and relevant files, then edits code or tests in a separate worktree and produces a patch. The goal is not to "make the error disappear" at any cost. The goal is to make the implementation and tests agree with the intended behavior.
+
+10. GitHub Actions verifies the attempted fix.
 
 After the agent edits files, the workflow reruns the relevant tests. This is the deterministic part. The agent can suggest a fix, but the test command decides whether the fix actually works.
 
-9. If verification fails, the workflow does not open a fix PR.
+11. If verification fails, the workflow does not open a fix PR.
 
 The agent posts a summary of what it tried and why it failed. This still helps the human developer because the failure has been triaged.
 
-10. If verification passes, the workflow opens a fix pull request.
+12. If verification passes, the workflow opens a fix pull request.
 
-The agent-created changes should be isolated in their own branch and pull request. This makes the AI's work visible and reviewable.
+The agent-created changes should be isolated in their own branch and pull request. This step needs write permissions because it applies the verified patch, pushes a repair branch, and opens a pull request. This makes the AI's work visible and reviewable.
 
-11. Human review gate before merge.
+13. Human review gate before merge.
 
 Even if tests pass, a human still needs to review the AI-generated fix. Tests prove that known checks passed. They do not prove that the change is correct, secure, maintainable, or aligned with product intent.
 
@@ -461,30 +479,74 @@ permissions:
   pull-requests: read
 
 jobs:
-  collect-context:
-    name: Collect failure context
+  preflight:
+    name: Check whether AI repair is allowed
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    outputs:
+      allow_repair: ${{ steps.check.outputs.allow_repair }}
+      target_branch: ${{ steps.check.outputs.target_branch }}
+      base_branch: ${{ steps.check.outputs.base_branch }}
 
-      - name: Check out target pull request
+    steps:
+      - name: Inspect pull request trust level
+        id: check
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh pr checkout "${{ inputs.pr_number }}"
+          gh pr view "${{ inputs.pr_number }}" \
+            --json headRefName,baseRefName,isCrossRepository,authorAssociation \
+            > pr.json
+
+          TARGET_BRANCH="$(jq -r '.headRefName' pr.json)"
+          BASE_BRANCH="$(jq -r '.baseRefName' pr.json)"
+          IS_CROSS_REPO="$(jq -r '.isCrossRepository' pr.json)"
+          AUTHOR_ASSOCIATION="$(jq -r '.authorAssociation' pr.json)"
+
+          ALLOW_REPAIR="false"
+
+          if [[ "$IS_CROSS_REPO" == "false" ]] &&
+             [[ "$AUTHOR_ASSOCIATION" =~ ^(OWNER|MEMBER|COLLABORATOR)$ ]] &&
+             [[ "$TARGET_BRANCH" != ai/* ]]; then
+            ALLOW_REPAIR="true"
+          fi
+
+          echo "allow_repair=$ALLOW_REPAIR" >> "$GITHUB_OUTPUT"
+          echo "target_branch=$TARGET_BRANCH" >> "$GITHUB_OUTPUT"
+          echo "base_branch=$BASE_BRANCH" >> "$GITHUB_OUTPUT"
+
+  collect-context:
+    name: Collect failure context
+    needs: preflight
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out pull request worktree
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ inputs.pr_number }}/head
+          path: worktree
+          fetch-depth: 0
 
       - name: Capture repository context
+        env:
+          BASE_BRANCH: ${{ needs.preflight.outputs.base_branch }}
         run: |
           mkdir -p ai-context
-          git status --short > ai-context/git-status.txt
-          git diff --stat origin/main...HEAD > ai-context/diff-stat.txt
+          cd worktree
+          git fetch origin "$BASE_BRANCH:refs/remotes/origin/$BASE_BRANCH" --depth=1
+          git status --short > ../ai-context/git-status.txt
+          git diff --stat "origin/$BASE_BRANCH"...HEAD > ../ai-context/diff-stat.txt
           find . -maxdepth 3 -type f \
             \( -name "package.json" -o -name "README.md" -o -name "Agents.md" \) \
-            > ai-context/project-files.txt
+            > ../ai-context/project-files.txt
+
+      - name: Capture failing test output
+        continue-on-error: true
+        run: |
+          cd worktree/launchpad-failing-tests-app/failing-tests-app
+          npm ci
+          npm test 2>&1 | tee ../../../ai-context/test-output.log
 
       - name: Upload context
         uses: actions/upload-artifact@v4
@@ -492,30 +554,35 @@ jobs:
           name: ai-repair-context
           path: ai-context/
 
-  ai-repair:
-    name: Attempt AI repair
-    needs: collect-context
+  agent-repair:
+    name: Generate and verify AI repair patch
+    needs:
+      - preflight
+      - collect-context
+    if: needs.preflight.outputs.allow_repair == 'true'
     runs-on: ubuntu-latest
 
-    # In a real repository, configure this environment in GitHub so a maintainer
-    # must approve the job before it can run with write permissions.
+    # Configure this environment in GitHub so a maintainer must approve the
+    # AI repair attempt before the job can use AI secrets or spend AI budget.
     environment: ai-repair
 
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
+      pull-requests: read
 
     steps:
-      - name: Check out repository
+      - name: Check out trusted automation
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: main
+          path: trusted
 
-      - name: Check out target pull request
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh pr checkout "${{ inputs.pr_number }}"
+      - name: Check out pull request worktree
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ inputs.pr_number }}/head
+          path: worktree
+          fetch-depth: 0
 
       - name: Download context
         uses: actions/download-artifact@v4
@@ -523,47 +590,88 @@ jobs:
           name: ai-repair-context
           path: ai-context/
 
-      - name: Create repair branch
-        run: |
-          BASE_BRANCH="$(git branch --show-current)"
-          REPAIR_BRANCH="ai/fix-failing-tests-${{ github.run_id }}"
-          echo "BASE_BRANCH=$BASE_BRANCH" >> "$GITHUB_ENV"
-          echo "REPAIR_BRANCH=$REPAIR_BRANCH" >> "$GITHUB_ENV"
-          git switch -c "$REPAIR_BRANCH"
-
       - name: Install dependencies
         run: |
-          cd launchpad-failing-tests-app/failing-tests-app
+          cd worktree/launchpad-failing-tests-app/failing-tests-app
           npm ci
 
       - name: Ask AI agent to attempt a fix
+        env:
+          # Example only. Store the real key as an environment secret.
+          AI_API_KEY: ${{ secrets.AI_API_KEY }}
         run: |
-          ./scripts/ai-repair-tests.sh \
+          trusted/scripts/ai-repair-tests.sh \
+            --repo worktree \
             --context ai-context \
             --test-command "cd launchpad-failing-tests-app/failing-tests-app && npm test"
 
       - name: Verify attempted fix
         run: |
-          cd launchpad-failing-tests-app/failing-tests-app
+          cd worktree/launchpad-failing-tests-app/failing-tests-app
           npm test
 
-      - name: Commit AI fix
+      - name: Create patch artifact
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          cd worktree
           if git diff --quiet; then
             echo "The AI agent did not produce any file changes."
             exit 1
           fi
-          git add .
+          git diff > ../ai-fix.patch
+
+      - name: Upload verified patch
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-fix-patch
+          path: ai-fix.patch
+
+  open-fix-pr:
+    name: Open AI fix pull request
+    needs:
+      - preflight
+      - agent-repair
+    runs-on: ubuntu-latest
+
+    # Optional second approval gate for the write-capable job.
+    environment: ai-open-fix-pr
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Check out target branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.preflight.outputs.target_branch }}
+          fetch-depth: 0
+
+      - name: Download verified patch
+        uses: actions/download-artifact@v4
+        with:
+          name: ai-fix-patch
+          path: .
+
+      - name: Apply patch and push repair branch
+        env:
+          REPAIR_BRANCH: ai/fix-failing-tests-${{ github.run_id }}
+        run: |
+          git switch -c "$REPAIR_BRANCH"
+          git apply ai-fix.patch
+          rm ai-fix.patch
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add launchpad-failing-tests-app/failing-tests-app
           git commit -m "Attempt AI repair for failing tests"
           git push --set-upstream origin "$REPAIR_BRANCH"
+          echo "REPAIR_BRANCH=$REPAIR_BRANCH" >> "$GITHUB_ENV"
 
       - name: Open pull request for human review
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cat > ai-context/ai-fix-pr-body.md <<'BODY'
+          cat > ai-fix-pr-body.md <<'BODY'
             This pull request was generated by an AI-assisted repair workflow.
 
             A human reviewer should verify:
@@ -574,29 +682,31 @@ jobs:
           BODY
 
           gh pr create \
-            --base "$BASE_BRANCH" \
+            --base "${{ needs.preflight.outputs.target_branch }}" \
             --head "$REPAIR_BRANCH" \
             --title "AI repair attempt for failing tests" \
-            --body-file ai-context/ai-fix-pr-body.md \
-            --label ai-generated \
-            --label needs-human-review
+            --body-file ai-fix-pr-body.md
 ```
 
 #### Explaining The Example For A Beginner
 
 `workflow_dispatch` means the workflow is started manually. That is useful for this kind of automation because a maintainer can decide when it is safe to let the agent attempt a write operation.
 
-`permissions` controls what the workflow is allowed to do. The top-level workflow starts with read-only permissions. The `ai-repair` job asks for write permissions only because it may need to push a branch and open a pull request.
+`permissions` controls what the workflow is allowed to do. The top-level workflow starts with read-only permissions. The only job with write permissions is `open-fix-pr`, and that job does not run the tests or the AI tool. It only applies a verified patch and opens a pull request.
 
-`collect-context` gathers information for the agent. This keeps the agent grounded in real evidence instead of guessing.
+`preflight` checks whether the pull request is eligible for AI repair. It blocks unsafe situations such as forked pull requests, unknown contributors, or branches that already look AI-generated.
 
-`environment: ai-repair` represents a human approval gate. In GitHub, environments can be configured so a reviewer must approve the job before it continues. This is useful because the job has write permissions.
+`collect-context` gathers information for the agent. It captures the diff summary and actual failing test output, which keeps the agent grounded in real evidence instead of guessing.
 
-`ai-repair` is where the agent would run. The example uses `./scripts/ai-repair-tests.sh` as a placeholder for whatever AI agent command the project chooses.
+`environment: ai-repair` represents a human approval gate. In GitHub, environments can be configured so a reviewer must approve the job before it continues. This is useful because the job may use AI secrets or spend AI budget.
+
+`agent-repair` is where the agent would run. It checks out trusted automation from `main` into one folder and the pull request worktree into another folder. This avoids running a repair script supplied by the pull request itself.
 
 `Verify attempted fix` reruns the failing tests. This is important because the agent's confidence is not enough. The workflow needs a real command to pass.
 
-`Open pull request for human review` makes the AI fix visible. The agent should not merge directly. The pull request gives humans a normal place to review the diff, ask questions, and approve or reject the change.
+`Create patch artifact` stores the verified AI change as a patch file. This lets the workflow pass the change to a later job without giving the test-running job write permissions.
+
+`open-fix-pr` is the only write-capable job. It can have its own protected environment, such as `ai-open-fix-pr`, so maintainers approve the step that actually pushes a branch and opens a pull request. The agent should not merge directly. The pull request gives humans a normal place to review the diff, ask questions, and approve or reject the change.
 
 #### How This Connects To GitOps
 
@@ -624,153 +734,15 @@ For an AI test repair workflow, a strong baseline is:
 
 - Let normal CI fail first.
 - Collect logs and context automatically.
+- Add a preflight job that checks whether repair is safe to attempt.
 - Allow diagnosis-only mode for untrusted pull requests.
-- Require human approval before giving the agent write permissions.
-- Have the agent work on a separate branch.
+- Require human approval before the agent uses AI secrets or repair automation.
+- Run trusted repair scripts from a trusted branch or automation repository.
+- Keep PR-controlled code away from write-capable tokens.
+- Have the agent produce a patch from a separate worktree.
 - Rerun tests after the agent changes files.
 - Open a pull request only if verification passes.
 - Require human code review before merge.
 - Keep all actions auditable in GitHub.
 
 This makes the AI agent useful without letting it become the final authority. The agent accelerates investigation and proposes a fix; GitHub Actions verifies the fix; humans decide whether the fix should become part of the project.
-
-### Question
-
-can you review your response and the workflow you outlined for potential improvements?
-
-### Response
-
-Yes. Reviewed as a CI design review, the overall idea is strong: normal CI runs first, an AI repair path starts only after failure, the agent works on a separate branch, tests are rerun, and humans review before merge.
-
-There are some important improvements I would make before turning the conceptual workflow into a real production workflow.
-
-#### Findings
-
-High severity:
-
-- The privileged repair job can execute pull-request-controlled code. In the example, the `ai-repair` job checks out the target PR and then runs `./scripts/ai-repair-tests.sh`. If that script comes from the PR branch, a malicious or broken PR could control what runs in a job that has `contents: write` and `pull-requests: write`. The safer pattern is to run the agent orchestration script from a trusted branch, pinned action, or separate trusted automation repo, while treating the PR branch as the worktree to inspect and modify.
-- The YAML describes trust checking in the diagram but does not implement it in code. The diagram has an "Is AI repair allowed?" decision, but the example workflow accepts any `pr_number` input and then grants write permissions in the `ai-repair` job. A real workflow should add a preflight job that checks whether the PR is from the same repository, whether the author is trusted, and whether a maintainer explicitly approved the repair attempt.
-- The example does not actually collect failed test logs. The `collect-context` job records `git status`, a diff stat, and project file names, but not the failing test output. The agent needs the actual error messages, stack traces, and failing test names. A real design should either download logs from the failed CI run or rerun the failing test command and save its output.
-
-Medium severity:
-
-- The example hardcodes `origin/main` when collecting the diff. That works only if the target branch is always `main`. A better workflow should read the PR's base branch with `gh pr view` and compare against that branch.
-- The variable `BASE_BRANCH` is misleading. After `gh pr checkout`, `git branch --show-current` is usually the PR head branch, not the PR base branch. If the AI fix PR is intended to target the original PR branch, the variable should be named something like `TARGET_BRANCH`. If the fix PR is intended to target `main`, the workflow needs a different branch strategy.
-- `git add .` may commit more than intended. It could include logs, context files, temporary outputs, generated files, or unrelated changes. A safer version should delete context artifacts before committing or explicitly add only the files the agent is allowed to change.
-- There is no loop prevention. An AI-generated PR could trigger the same repair workflow again if future triggers are added. A real workflow should skip branches like `ai/*`, skip bot-authored PRs, or use labels such as `ai-generated`.
-- The labels `ai-generated` and `needs-human-review` may not exist. `gh pr create --label` can fail if the labels have not been created in the repository.
-
-Low severity:
-
-- The example is intentionally repo-specific because it runs `npm test` inside `launchpad-failing-tests-app/failing-tests-app`. That is fine for this challenge, but a reusable workflow should accept a test command or project path as input.
-- The workflow should mention action pinning for higher-security environments. Version tags like `actions/checkout@v4` are common, but security-sensitive repositories may pin actions to commit SHAs.
-- The Mermaid diagram is helpful, but it would be even clearer if it showed a concrete `preflight` job before the human approval gate.
-
-#### Better Job Structure
-
-A stronger real-world structure would be:
-
-1. `test`: normal CI job runs tests and uploads logs when it fails.
-2. `ai-repair-preflight`: checks PR trust level, branch source, author association, and whether AI repair is allowed.
-3. `collect-failure-context`: downloads the failed test logs or reruns tests and captures output.
-4. `agent-diagnose`: read-only AI job that summarizes the likely cause.
-5. `approval-gate`: human approval before any write-capable job runs.
-6. `agent-repair`: trusted agent script edits a separate worktree or repair branch.
-7. `verify-ai-fix`: reruns tests without unnecessary secrets exposed.
-8. `open-fix-pr`: opens a PR only if verification passes.
-9. `human-review`: normal code review before merge.
-
-This is better because the workflow separates diagnosis, permission escalation, code modification, verification, and merge approval.
-
-#### Safer Preflight Example
-
-This kind of step checks whether the workflow should allow a write-capable repair attempt.
-
-```yaml
-- name: Inspect pull request trust level
-  id: pr
-  env:
-    GH_TOKEN: ${{ github.token }}
-  run: |
-    gh pr view "${{ inputs.pr_number }}" \
-      --json headRefName,baseRefName,isCrossRepository,authorAssociation \
-      > pr.json
-
-    IS_CROSS_REPO="$(jq -r '.isCrossRepository' pr.json)"
-    AUTHOR_ASSOCIATION="$(jq -r '.authorAssociation' pr.json)"
-
-    echo "is_cross_repo=$IS_CROSS_REPO" >> "$GITHUB_OUTPUT"
-    echo "author_association=$AUTHOR_ASSOCIATION" >> "$GITHUB_OUTPUT"
-```
-
-A later job could use those outputs to decide whether to run diagnosis-only mode or allow a human-approved repair attempt.
-
-#### Safer Trusted-Script Pattern
-
-Instead of running scripts from the PR branch in a privileged job, check out trusted automation separately.
-
-```yaml
-- name: Check out trusted automation
-  uses: actions/checkout@v4
-  with:
-    ref: main
-    path: trusted
-
-- name: Check out pull request worktree
-  uses: actions/checkout@v4
-  with:
-    ref: refs/pull/${{ inputs.pr_number }}/head
-    path: worktree
-
-- name: Run trusted AI repair script against PR worktree
-  run: |
-    trusted/scripts/ai-repair-tests.sh \
-      --repo worktree \
-      --context ai-context \
-      --test-command "cd launchpad-failing-tests-app/failing-tests-app && npm test"
-```
-
-This keeps the automation logic under maintainer control. The agent can still inspect and edit the PR worktree, but the workflow is not blindly executing a script supplied by the PR.
-
-#### Safer Log Collection Example
-
-The agent should receive actual failure output, not just a diff stat.
-
-```yaml
-- name: Capture failing test output
-  continue-on-error: true
-  run: |
-    mkdir -p ai-context
-    cd launchpad-failing-tests-app/failing-tests-app
-    npm ci
-    npm test 2>&1 | tee ../../ai-context/test-output.log
-```
-
-For a more advanced version, the AI repair workflow could accept a failed workflow run ID and download the exact logs from that run instead of rerunning tests.
-
-#### Human Gate Improvements
-
-The original design correctly includes human approval gates. I would make the justification even more explicit:
-
-- Human approval before AI writes code is needed because the workflow changes from read-only diagnosis to a write-capable job. That job can push branches, open pull requests, consume AI budget, and potentially run code from the PR.
-- Human review before merge is needed because passing tests does not prove the fix is correct. The AI might weaken a test, preserve the wrong behavior, miss a security issue, or make the code harder to maintain.
-
-The best framing is:
-
-- Automation can collect facts, run commands, enforce policies, and prove checks passed.
-- The agent can propose a repair.
-- Humans decide whether the repair is semantically correct, secure, and worth merging.
-
-#### Recommended Next Revision
-
-If revising the workflow note, I would update it to include:
-
-- A real `preflight` job in the diagram.
-- Diagnosis-only mode as the default path.
-- A trusted automation checkout separate from the PR worktree.
-- Test log capture as an explicit step.
-- Clear branch naming: `TARGET_BRANCH` for the original PR branch and `REPAIR_BRANCH` for the AI branch.
-- Loop prevention for `ai/*` branches and `ai-generated` PRs.
-- A note that secrets should be available only to the smallest possible step, and never to untrusted test execution unless absolutely unavoidable.
-
-With those changes, the workflow becomes much closer to a practical and safe AI-assisted GitHub Actions design.
