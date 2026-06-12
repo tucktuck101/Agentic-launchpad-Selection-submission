@@ -35,3 +35,26 @@ how would you describe what a job is?
 ### Response
 
 A job is a named chunk of work inside a GitHub Actions workflow. Each job runs in its own environment and contains the steps needed to complete a task, such as checking out the code, installing dependencies, and running a Markdown lint, Python check, JavaScript check, or test command. Jobs can run independently, fail independently, and run in parallel by default unless configured with dependencies.
+
+### Question
+
+how do DevOps engineers normally document the design or "Current state" of CI/CD pipelines?
+
+### Response
+
+DevOps engineers usually document CI/CD pipelines in a short architecture or runbook-style document. The goal is to make the current automation understandable without requiring someone to reverse-engineer every workflow file.
+
+Common sections include:
+
+- Purpose: what the pipeline is meant to protect or automate.
+- Triggers: when it runs, such as push, pull request, schedule, release, or manual dispatch.
+- Workflow layout: which workflow files exist and what each one does.
+- Jobs: the major units of work, such as linting, testing, building, security scanning, packaging, or deployment.
+- Dependencies: required runtimes, package managers, secrets, tokens, containers, or external services.
+- Environments: where code is deployed, such as dev, staging, or production.
+- Gates: required checks, approvals, branch protections, or manual review points.
+- Artifacts: build outputs, test reports, coverage reports, container images, or logs.
+- Failure handling: common failure causes and where to look first when debugging.
+- Ownership: who maintains the pipeline and who should be contacted when it breaks.
+
+For this challenge, a good current-state note could describe the planned GitHub Actions workflow as a CI pipeline with separate jobs for Markdown checks, Python checks, JavaScript checks, and later tests.

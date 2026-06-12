@@ -10,3 +10,4 @@
 2026-06-12T03:33:52Z Converted `Requirements.txt` into installer input and added `scripts/install-requirements.sh`.
 2026-06-12T03:33:52Z Updated `README.md` to document the requirements installer command.
 2026-06-12T04:45:36Z Added challenge-one notes guidance to Agents.md and created GitHub Actions Q&A notes file.
+2026-06-12T04:48:23Z Appended CI/CD current-state documentation Q&A to challenge-one notes.
