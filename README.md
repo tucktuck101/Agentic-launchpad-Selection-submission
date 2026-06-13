@@ -2,10 +2,15 @@
 
 This repository is a working space for an Agentic Launchpad selection challenge. It contains the challenge brief, a submission template, and task folders used to demonstrate learning process, technical judgment, debugging, and communication.
 
+## Submission Model
+
+The full repository is the submission artefact. `agentic-launchpad-selection-submission.md` is the supplied template and summary, not the only evidence for the submission. Supporting evidence lives in the task folders, `Codex.log`, `Agents.md`, `challenge_one/codex_notes.md`, and `.github/workflows/ci.yml`.
+
 ## Repository Contents
 
 - `Challenge_info.md`: cleaned Markdown version of the challenge instructions.
 - `agentic-launchpad-selection-submission.md`: submission template to fill in as work is completed.
+- `SUBMISSION_MAP.md`: concise review path through the submission artefact.
 - `Agents.md`: local guidance for Codex and future agentic work in this repo.
 - `Codex.log`: timestamped one-line summaries of Codex actions.
 - `challenge_two/PLAN.md`: high-level plan for the Part 2 technical work sample.

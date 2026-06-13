@@ -6,6 +6,7 @@ This repository is an Agentic Launchpad selection submission workspace.
 
 - Use `Challenge_info.md` as the source of truth for the challenge brief.
 - Use `agentic-launchpad-selection-submission.md` as the submission template.
+- Treat the full repository as the submission artefact; the supplied Markdown file is the required template/summary, not the only evidence.
 - Do not modify anything inside `Original_Files/`.
 - Prefer small, local changes that preserve the structure of the provided materials.
 - If you need to inspect challenge two tasks, work in:
