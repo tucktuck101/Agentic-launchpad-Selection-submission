@@ -1,0 +1,87 @@
+
+> launchpad-failing-tests-app@1.0.0 test
+> node --test
+
+TAP version 13
+# Subtest: /Users/jeff/DevAcademy/Enrolement/Agentic-launchpad-Selection-submission/challenge_two/task_5_failing_tests/parcelRules.test.js
+    # Subtest: standard NZ shipping is 8 dollars
+    ok 1 - standard NZ shipping is 8 dollars
+      ---
+      duration_ms: 2.065352
+      ...
+    # Subtest: orders of exactly 100 dollars get free shipping
+    ok 2 - orders of exactly 100 dollars get free shipping
+      ---
+      duration_ms: 0.342912
+      ...
+    # Subtest: bulky orders add a 5 dollar handling fee
+    ok 3 - bulky orders add a 5 dollar handling fee
+      ---
+      duration_ms: 0.125653
+      ...
+    # Subtest: international orders add 20 dollars
+    ok 4 - international orders add 20 dollars
+      ---
+      duration_ms: 0.117793
+      ...
+    # Subtest: invalid orders throw a useful error
+    ok 5 - invalid orders throw a useful error
+      ---
+      duration_ms: 0.589068
+      ...
+    # Subtest: paid orders are ready
+    ok 6 - paid orders are ready
+      ---
+      duration_ms: 0.99898
+      ...
+    # Subtest: packed orders are ready
+    ok 7 - packed orders are ready
+      ---
+      duration_ms: 0.189496
+      ...
+    # Subtest: WELCOME10 removes 10 percent from the total
+    ok 8 - WELCOME10 removes 10 percent from the total
+      ---
+      duration_ms: 0.130897
+      ...
+    # Subtest: unknown discount codes do not change the total
+    ok 9 - unknown discount codes do not change the total
+      ---
+      duration_ms: 0.118575
+      ...
+    1..9
+ok 1 - /Users/jeff/DevAcademy/Enrolement/Agentic-launchpad-Selection-submission/challenge_two/task_5_failing_tests/parcelRules.test.js
+  ---
+  duration_ms: 130.422664
+  ...
+# Subtest: /Users/jeff/DevAcademy/Enrolement/Agentic-launchpad-Selection-submission/challenge_two/task_5_failing_tests/server.test.js
+    # Subtest: POST /api/quote returns subtotal, shipping, total, and status
+    not ok 1 - POST /api/quote returns subtotal, shipping, total, and status
+      ---
+      duration_ms: 8.787125
+      failureType: 'uncaughtException'
+      error: 'listen EPERM: operation not permitted 127.0.0.1'
+      code: 'EPERM'
+      stack: |-
+        Server.setupListenHandle [as _listen2] (node:net:1724:21)
+        listenInCluster (node:net:1789:12)
+        doListen (node:net:1938:7)
+        process.processTicksAndRejections (node:internal/process/task_queues:83:21)
+      ...
+    1..1
+not ok 2 - /Users/jeff/DevAcademy/Enrolement/Agentic-launchpad-Selection-submission/challenge_two/task_5_failing_tests/server.test.js
+  ---
+  duration_ms: 252.716503
+  failureType: 'subtestsFailed'
+  exitCode: 1
+  error: 'test failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..2
+# tests 2
+# pass 1
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 387.197644

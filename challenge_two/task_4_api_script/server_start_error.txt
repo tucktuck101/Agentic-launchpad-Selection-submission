@@ -1,0 +1,20 @@
+Command:
+python3 server.py
+
+Working directory:
+challenge_two/task_4_api_script/api-script-server
+
+Result:
+Traceback (most recent call last):
+  File "challenge_two/task_4_api_script/api-script-server/server.py", line 86, in <module>
+    server = HTTPServer(("0.0.0.0", 5050), Handler)
+  File ".../socketserver.py", line 457, in __init__
+    self.server_bind()
+  File ".../http/server.py", line 144, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File ".../socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+PermissionError: [Errno 1] Operation not permitted
+
+Follow-up:
+An escalation request to allow the local bind was rejected by the execution environment, so no live endpoint output was captured.

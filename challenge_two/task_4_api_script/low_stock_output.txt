@@ -1,0 +1,8 @@
+Expected output based on inspected API data.
+
+Live run status: not captured. The supplied server could not bind to localhost:5050 in the sandbox; see server_start_error.txt.
+
+Pocket Lantern | category=gear | stock=2 | reorderAt=5 | margin=$13.50
+Moonlit Marmalade | category=pantry | stock=4 | reorderAt=8 | margin=$7.25
+Clockwork Pear | category=produce | stock=0 | reorderAt=6 | margin=$4.75
+Total retail value of low-stock items: $106.00

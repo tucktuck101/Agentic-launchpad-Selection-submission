@@ -58,3 +58,11 @@
 2026-06-13 21:27:14 +1200 Refined repo-level submission navigation and documented AGENTS.md as canonical guidance.
 2026-06-13 21:47:43 +1200 Updated Challenge Two planning and local guidance for task-local submission-ready DoD artefacts.
 2026-06-13 21:57:52 +1200 Refined Part 2 task guidance so task-local artefacts are primary and codex_notes.md is optional index-only.
+2026-06-13T22:10:30+1200 Started Challenge Two task-local artefact run and inspected repo guidance, plans, DoD tracker, and task instructions.
+2026-06-13T22:12:03+1200 Completed Task 1 code review notes and updated Part 2 DoD tracker.
+2026-06-13T22:12:52+1200 Completed Task 2 clarifying questions artefact and updated Part 2 DoD tracker.
+2026-06-13T22:14:26+1200 Completed Task 3 ticket index and ordered ticket files, then updated Part 2 DoD tracker.
+2026-06-13T22:16:16+1200 Completed Task 4 script notes and expected output with documented local server bind blocker.
+2026-06-13T22:21:51+1200 Completed Task 5 failing-test analysis, before/after output captures, and tracker update with sandbox listener blocker.
+2026-06-13T22:22:33+1200 Ran final artefact, scope, forbidden-path, and whitespace checks before commit.
+2026-06-13T22:23:25+1200 Final commit was blocked because git index write escalation was rejected by the execution environment.

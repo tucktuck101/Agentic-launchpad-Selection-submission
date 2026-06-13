@@ -3,7 +3,7 @@ import { test } from "node:test"
 import { createApp } from "./server.js"
 
 test("POST /api/quote returns subtotal, shipping, total, and status", async () => {
-  const server = createApp().listen(0)
+  const server = createApp().listen(0, "127.0.0.1")
   await new Promise((resolve) => server.once("listening", resolve))
   const baseUrl = `http://127.0.0.1:${server.address().port}`
 
