@@ -45,3 +45,10 @@
 2026-06-13 20:06:58 +1200 Reviewed and tightened Challenge Two setup planning instructions.
 2026-06-13 20:11:53 +1200 Updated single-run goal prompt against OpenAI Codex best practices.
 2026-06-13 20:14:29 +1200 Aligned wider Challenge Two setup with Codex execution best practices.
+2026-06-13 20:17:37 +1200 Started Challenge Two single-run execution and inspected Task 1 code review app.
+2026-06-13 20:18:30 +1200 Completed Task 1 notes and started Task 2 clarifying questions.
+2026-06-13 20:19:16 +1200 Completed Task 2 notes and started Task 3 PRD ticket breakdown.
+2026-06-13 20:21:01 +1200 Completed Task 3 notes and verified Task 4 API script output.
+2026-06-13 20:23:17 +1200 Fixed Task 5 parcel rule code and misleading tests, then verified npm test.
+2026-06-13 20:23:57 +1200 Completed Challenge Two notes and began final verification.
+2026-06-13 20:25:18 +1200 Created final Challenge Two completion commit.

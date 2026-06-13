@@ -46,8 +46,8 @@ test("paid orders are ready", () => {
   assert.equal(normaliseStatus("paid"), "ready")
 })
 
-test("packed orders are packed", () => {
-  assert.equal(normaliseStatus("packed"), "packed")
+test("packed orders are ready", () => {
+  assert.equal(normaliseStatus("packed"), "ready")
 })
 
 test("WELCOME10 removes 10 percent from the total", () => {

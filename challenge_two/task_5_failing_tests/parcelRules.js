@@ -8,7 +8,7 @@ export function calculateShipping(order) {
 
   let shipping = 8
 
-  if (subtotal > 100) {
+  if (subtotal >= 100) {
     shipping = 0
   }
 
@@ -32,11 +32,7 @@ export function normaliseStatus(status) {
 
 export function applyDiscount(total, code) {
   if (code === "WELCOME10") {
-    return total * 0.1
-  }
-
-  if (code === "FREESHIP") {
-    return 0
+    return total * 0.9
   }
 
   return total
