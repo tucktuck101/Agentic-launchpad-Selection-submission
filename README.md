@@ -9,6 +9,7 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 - `Agents.md`: local guidance for Codex and future agentic work in this repo.
 - `Codex.log`: timestamped one-line summaries of Codex actions.
 - `challenge_two/PLAN.md`: high-level plan for the Part 2 technical work sample.
+- `challenge_two/codex_notes.md`: canonical staging notes for Challenge Two submission-ready material.
 - `challenge_two/launchpad-code-review-app/`: Express/React code review task.
 - `challenge_two/clarifying-questions/`: return-request clarification task.
 - `challenge_two/prd-to-tickets/`: return-request PRD ticket breakdown task.
@@ -35,7 +36,7 @@ git config user.email "you@example.com"
 
 ## Workflow
 
-Use `Challenge_info.md` as the source of truth for the challenge and fill in `agentic-launchpad-selection-submission.md` as work progresses. Keep notes concrete: what was tried, what changed, what worked, what did not, and what would be done next.
+Use `Challenge_info.md` as the source of truth for the challenge and fill in `agentic-launchpad-selection-submission.md` as work progresses. For Challenge Two, stage submission-ready material in `challenge_two/codex_notes.md` instead of editing the final submission template unless a final-copy step is explicitly requested. Keep notes concrete: what was tried, what changed, what worked, what did not, and what would be done next.
 
 `Original_Files/` is intentionally ignored by Git and should remain unchanged.
 
@@ -59,6 +60,7 @@ test -f Requirements.txt
 test -f Agents.md
 test -f challenge_two/Agents.md
 test -f challenge_two/PLAN.md
+test -f challenge_two/codex_notes.md
 test -f challenge_two/launchpad-code-review-app/Agents.md
 test -f challenge_two/clarifying-questions/Agents.md
 test -f challenge_two/prd-to-tickets/Agents.md

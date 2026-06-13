@@ -25,10 +25,11 @@ These instructions apply to the Challenge Two PRD-to-tickets task.
 - Make each ticket independently understandable and verifiable.
 - Prefer a sequence that establishes data/state first, then customer request flow, then support review, then customer status visibility.
 - Keep acceptance checks observable and concise.
-- Capture answers or draft submission text in this folder unless the user asks to update the final submission directly.
+- Update the PRD To Tickets section in `../codex_notes.md` with submission-ready answers and evidence.
 
 ## Boundaries
 
 - Do not build the return-request feature.
 - Do not edit app code for this task.
+- Do not update `../../agentic-launchpad-selection-submission.md` unless the user explicitly asks for a final-copy step.
 - Do not include version-one work for rich text, notifications, refund payment processing, analytics dashboards, or international orders.

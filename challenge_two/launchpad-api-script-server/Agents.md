@@ -22,7 +22,7 @@ These instructions apply to the Challenge Two API script task.
 - Prefer Python standard-library modules for the consumer script unless the repo already has a dependency.
 - Put the consumer script in `challenge_two/` or another challenge-two working location, not inside reference server code, unless there is a clear reason.
 - Capture actual output when the server can be run locally.
-- Record assumptions and one improvement to make next.
+- Update the API Script section in `../codex_notes.md` with the script path or partial script, output, assumptions, evidence, and one improvement to make next.
 
 ## Boundaries
 

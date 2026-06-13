@@ -34,6 +34,8 @@ This repository is an Agentic Launchpad selection submission workspace.
 ## Challenge Two Notes
 
 - Challenge two work should attempt all technical tasks because AI is being used extensively.
+- Store Challenge Two submission-ready answers, evidence, commands, assumptions, and verification notes in `challenge_two/codex_notes.md`.
+- Do not update `agentic-launchpad-selection-submission.md` for Challenge Two unless the user explicitly asks for a final-copy step.
 - Use `challenge_two/` for challenge-two notes, helper scripts, and task-specific working files unless the challenge app itself needs a small code or test change.
 - Keep task outputs concrete: commands run, observations, assumptions, changes made, and next improvements.
 

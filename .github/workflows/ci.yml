@@ -24,6 +24,7 @@ jobs:
           test -f Agents.md
           test -f challenge_two/Agents.md
           test -f challenge_two/PLAN.md
+          test -f challenge_two/codex_notes.md
           test -f challenge_two/launchpad-code-review-app/Agents.md
           test -f challenge_two/clarifying-questions/Agents.md
           test -f challenge_two/prd-to-tickets/Agents.md

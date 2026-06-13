@@ -2,7 +2,7 @@
 
 ## Goal
 
-Complete all Part 2 technical tasks and produce concrete material for the submission template. Because AI is being used extensively, attempt every task rather than choosing a subset.
+Complete all Part 2 technical tasks and produce concrete material in `codex_notes.md` for the submission template. Because AI is being used extensively, attempt every task rather than choosing a subset.
 
 ## Working Principles
 
@@ -11,7 +11,8 @@ Complete all Part 2 technical tasks and produce concrete material for the submis
 - Preserve the provided app structure unless a task explicitly requires a small code or test change.
 - Do not modify `../Original_Files/`, `node_modules/`, build output, caches, or generated files.
 - Record commands, outputs, assumptions, blockers, and verification while working.
-- Keep final submission notes concrete: what was tried, what changed, what was checked, what remains.
+- Keep `codex_notes.md` concrete: what was tried, what changed, what was checked, what remains.
+- Do not update `../agentic-launchpad-selection-submission.md` unless the user explicitly asks for a final-copy step.
 - Commit focused changes after each completed task.
 
 ## Task Folders
@@ -23,6 +24,8 @@ Complete all Part 2 technical tasks and produce concrete material for the submis
 - Failing Tests: `failing-tests-app/`
 
 Each task folder has its own `Agents.md`; read that file before starting work in the folder.
+
+Use `codex_notes.md` as the canonical Challenge Two notes file. Update the relevant section after each task.
 
 ## Task Order
 
@@ -80,6 +83,6 @@ Each task folder has its own `Agents.md`; read that file before starting work in
 - All five Part 2 tasks have submission-ready notes.
 - Relevant commands have been run and important output is captured.
 - Any code or test changes are minimal and verified.
-- `../agentic-launchpad-selection-submission.md` can be updated from the collected notes.
+- `codex_notes.md` contains all information needed to manually update `../agentic-launchpad-selection-submission.md` later.
 - `../Codex.log` includes meaningful timestamped progress entries.
 - The final challenge-two state is committed to Git.

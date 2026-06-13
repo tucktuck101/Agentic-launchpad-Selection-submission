@@ -6,7 +6,7 @@ These instructions apply to the Challenge Two failing-tests app.
 
 - Work out which test failures expose application bugs and which tests are wrong or misleading.
 - Make minimal changes needed to align the app and tests with the product rules.
-- Record the classification and changes for the final submission.
+- Record the classification and changes in `../codex_notes.md`.
 
 ## Product Rules
 
@@ -25,7 +25,7 @@ These instructions apply to the Challenge Two failing-tests app.
 - Classify failures as valid tests exposing code bugs or tests with wrong expectations.
 - Make the smallest app or test edits needed.
 - Re-run `npm test` after changes.
-- Record which tests were valid, which were wrong or misleading, and what changed.
+- Update the Failing Tests section in `../codex_notes.md` with valid tests, wrong or misleading tests, changes made, and evidence.
 
 ## Boundaries
 

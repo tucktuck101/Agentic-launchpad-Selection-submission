@@ -23,10 +23,11 @@ These instructions apply to the Challenge Two clarifying-questions task.
 - Separate questions from assumptions.
 - Prioritize questions that affect data model, eligibility, user roles, support workflow, and status handling.
 - Prefer a small domestic-orders-only version one unless the brief or user changes the scope.
-- Capture answers or draft submission text in this folder unless the user asks to update the final submission directly.
+- Update the Clarifying Questions section in `../codex_notes.md` with submission-ready answers and evidence.
 
 ## Boundaries
 
 - Do not build the feature.
 - Do not edit app code for this task.
+- Do not update `../../agentic-launchpad-selection-submission.md` unless the user explicitly asks for a final-copy step.
 - Do not invent complex policy, refund, notification, analytics, or international-order behavior beyond a clearly marked assumption.

@@ -17,6 +17,7 @@ These instructions apply to the Challenge Two code review app.
 - Include the first change you would make and why.
 - Include what you would leave alone for now.
 - Include extra information that would help the review.
+- Update the Code Review section in `../codex_notes.md` with the review findings and evidence.
 
 ## Review Focus
 
