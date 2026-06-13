@@ -8,8 +8,10 @@ This repository is an Agentic Launchpad selection submission workspace.
 - Use `agentic-launchpad-selection-submission.md` as the submission template.
 - Do not modify anything inside `Original_Files/`.
 - Prefer small, local changes that preserve the structure of the provided materials.
-- If you need to inspect the challenge apps, work in:
+- If you need to inspect challenge two tasks, work in:
   - `challenge_two/launchpad-code-review-app/`
+  - `challenge_two/clarifying-questions/`
+  - `challenge_two/prd-to-tickets/`
   - `challenge_two/failing-tests-app/`
   - `challenge_two/launchpad-api-script-server/`
 

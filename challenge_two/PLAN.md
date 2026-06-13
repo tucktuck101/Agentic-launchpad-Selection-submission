@@ -7,7 +7,7 @@ Complete all Part 2 technical tasks and produce concrete material for the submis
 ## Working Principles
 
 - Read the relevant brief in `../Challenge_info.md` before starting each task.
-- Follow `Agents.md` files at the repo root, `challenge_two/`, and the specific app directory.
+- Follow `Agents.md` files at the repo root, `challenge_two/`, and the specific task folder.
 - Preserve the provided app structure unless a task explicitly requires a small code or test change.
 - Do not modify `../Original_Files/`, `node_modules/`, build output, caches, or generated files.
 - Record commands, outputs, assumptions, blockers, and verification while working.
@@ -21,6 +21,8 @@ Complete all Part 2 technical tasks and produce concrete material for the submis
 - PRD To Tickets: `prd-to-tickets/`
 - API Script: `launchpad-api-script-server/`
 - Failing Tests: `failing-tests-app/`
+
+Each task folder has its own `Agents.md`; read that file before starting work in the folder.
 
 ## Task Order
 

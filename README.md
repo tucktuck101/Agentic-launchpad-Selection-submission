@@ -8,7 +8,10 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 - `agentic-launchpad-selection-submission.md`: submission template to fill in as work is completed.
 - `Agents.md`: local guidance for Codex and future agentic work in this repo.
 - `Codex.log`: timestamped one-line summaries of Codex actions.
+- `challenge_two/PLAN.md`: high-level plan for the Part 2 technical work sample.
 - `challenge_two/launchpad-code-review-app/`: Express/React code review task.
+- `challenge_two/clarifying-questions/`: return-request clarification task.
+- `challenge_two/prd-to-tickets/`: return-request PRD ticket breakdown task.
 - `challenge_two/failing-tests-app/`: Express failing-tests task.
 - `challenge_two/launchpad-api-script-server/`: tiny Python API and scripting task.
 - `Original_Files/`: original reference materials. Do not modify files in this folder.
@@ -54,7 +57,14 @@ test -f Challenge_info.md
 test -f agentic-launchpad-selection-submission.md
 test -f Requirements.txt
 test -f Agents.md
-if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/launchpad-code-review-app/code-review-app/README.md challenge_two/failing-tests-app/README.md challenge_two/launchpad-api-script-server/api-script-server/README.md; then
+test -f challenge_two/Agents.md
+test -f challenge_two/PLAN.md
+test -f challenge_two/launchpad-code-review-app/Agents.md
+test -f challenge_two/clarifying-questions/Agents.md
+test -f challenge_two/prd-to-tickets/Agents.md
+test -f challenge_two/launchpad-api-script-server/Agents.md
+test -f challenge_two/failing-tests-app/Agents.md
+if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/*.md challenge_two/*/*.md challenge_two/launchpad-code-review-app/code-review-app/README.md challenge_two/launchpad-api-script-server/api-script-server/README.md; then
   echo "Unresolved merge marker found in Markdown files."
   exit 1
 fi

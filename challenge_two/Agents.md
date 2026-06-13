@@ -17,6 +17,7 @@ These instructions apply to Challenge Two work.
 ## Task Workflow
 
 - Read the task instructions before inspecting or editing task files.
+- Read the matching task-folder `Agents.md` before starting task-specific work.
 - Prefer this order unless the user asks otherwise:
   1. Code Review
   2. Clarifying Questions

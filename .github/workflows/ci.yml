@@ -22,6 +22,13 @@ jobs:
           test -f agentic-launchpad-selection-submission.md
           test -f Requirements.txt
           test -f Agents.md
+          test -f challenge_two/Agents.md
+          test -f challenge_two/PLAN.md
+          test -f challenge_two/launchpad-code-review-app/Agents.md
+          test -f challenge_two/clarifying-questions/Agents.md
+          test -f challenge_two/prd-to-tickets/Agents.md
+          test -f challenge_two/launchpad-api-script-server/Agents.md
+          test -f challenge_two/failing-tests-app/Agents.md
 
       - name: Check Markdown for unresolved merge markers
         run: |
@@ -30,8 +37,9 @@ jobs:
             Challenge_info.md \
             agentic-launchpad-selection-submission.md \
             challenge_one/*.md \
+            challenge_two/*.md \
+            challenge_two/*/*.md \
             challenge_two/launchpad-code-review-app/code-review-app/README.md \
-            challenge_two/failing-tests-app/README.md \
             challenge_two/launchpad-api-script-server/api-script-server/README.md; then
             echo "Unresolved merge marker found in Markdown files."
             exit 1
