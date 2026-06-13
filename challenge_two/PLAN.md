@@ -14,6 +14,14 @@ Complete all Part 2 technical tasks and produce concrete material for the submis
 - Keep final submission notes concrete: what was tried, what changed, what was checked, what remains.
 - Commit focused changes after each completed task.
 
+## Task Folders
+
+- Code Review: `launchpad-code-review-app/`
+- Clarifying Questions: `clarifying-questions/`
+- PRD To Tickets: `prd-to-tickets/`
+- API Script: `launchpad-api-script-server/`
+- Failing Tests: `failing-tests-app/`
+
 ## Task Order
 
 1. Code Review
