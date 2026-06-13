@@ -21,7 +21,7 @@ jobs:
           test -f Challenge_info.md
           test -f agentic-launchpad-selection-submission.md
           test -f Requirements.txt
-          test -f Agents.md
+          test -f AGENTS.md
           test -f challenge_two/Agents.md
           test -f challenge_two/PLAN.md
           test -f challenge_two/codex_notes.md
@@ -35,6 +35,7 @@ jobs:
         run: |
           if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- \
             README.md \
+            AGENTS.md \
             Challenge_info.md \
             agentic-launchpad-selection-submission.md \
             challenge_one/*.md \

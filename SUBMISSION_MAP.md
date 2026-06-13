@@ -10,11 +10,11 @@ This repository is the submission artefact. Use this path to review the work wit
 4. Check `challenge_one/codex_notes.md` and `.github/workflows/ci.yml` for the GitHub Actions learning challenge evidence.
 5. Review `challenge_two/codex_notes.md` for submission-ready Challenge Two notes, commands, assumptions, and verification.
 6. Inspect the task folders under `challenge_two/` for supporting code, plans, and task-specific notes.
-7. Use `Codex.log` and `Agents.md` to understand the agent workflow, guardrails, and audit trail.
+7. Use `Codex.log` and `AGENTS.md` to understand the agent workflow, guardrails, and audit trail.
 
 ## Evidence Locations
 
 - Challenge One: `challenge_one/codex_notes.md`, `.github/workflows/ci.yml`, `README.md`.
 - Challenge Two: `challenge_two/codex_notes.md` and `challenge_two/task_*` folders.
-- Agent workflow: `Agents.md`, nested task `Agents.md` files, `Codex.log`.
+- Agent workflow: `AGENTS.md`, nested task `Agents.md` files, `Codex.log`.
 - Reference material: `Original_Files/` is preserved and should not be modified.

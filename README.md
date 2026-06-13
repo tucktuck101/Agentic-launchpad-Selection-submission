@@ -4,14 +4,14 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 
 ## Submission Model
 
-The full repository is the submission artefact. `agentic-launchpad-selection-submission.md` is the supplied template and summary, not the only evidence for the submission. Supporting evidence lives in the task folders, `Codex.log`, `Agents.md`, `challenge_one/codex_notes.md`, and `.github/workflows/ci.yml`.
+The full repository is the submission artefact. `agentic-launchpad-selection-submission.md` is the supplied template and summary layer, not the only evidence for the submission. Supporting evidence lives in the task folders, `Codex.log`, `AGENTS.md`, `challenge_one/codex_notes.md`, and `.github/workflows/ci.yml`.
 
 ## Repository Contents
 
 - `Challenge_info.md`: cleaned Markdown version of the challenge instructions.
 - `agentic-launchpad-selection-submission.md`: submission template to fill in as work is completed.
 - `SUBMISSION_MAP.md`: concise review path through the submission artefact.
-- `Agents.md`: local guidance for Codex and future agentic work in this repo.
+- `AGENTS.md`: canonical guidance for Codex and future agentic work in this repo.
 - `Codex.log`: timestamped one-line summaries of Codex actions.
 - `challenge_two/PLAN.md`: high-level plan for the Part 2 technical work sample.
 - `challenge_two/codex_notes.md`: canonical staging notes for Challenge Two submission-ready material.
@@ -62,7 +62,7 @@ test -f README.md
 test -f Challenge_info.md
 test -f agentic-launchpad-selection-submission.md
 test -f Requirements.txt
-test -f Agents.md
+test -f AGENTS.md
 test -f challenge_two/Agents.md
 test -f challenge_two/PLAN.md
 test -f challenge_two/codex_notes.md
@@ -71,7 +71,7 @@ test -f challenge_two/task_2_clarifying_questions/Agents.md
 test -f challenge_two/task_3_prd_to_tickets/Agents.md
 test -f challenge_two/task_4_api_script/Agents.md
 test -f challenge_two/task_5_failing_tests/Agents.md
-if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/*.md challenge_two/*/*.md challenge_two/task_1_code_review/code-review-app/README.md challenge_two/task_4_api_script/api-script-server/README.md; then
+if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md AGENTS.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/*.md challenge_two/*/*.md challenge_two/task_1_code_review/code-review-app/README.md challenge_two/task_4_api_script/api-script-server/README.md; then
   echo "Unresolved merge marker found in Markdown files."
   exit 1
 fi

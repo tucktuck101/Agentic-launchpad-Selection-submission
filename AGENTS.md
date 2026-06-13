@@ -1,12 +1,19 @@
-# Agents.md
+# AGENTS.md
 
 This repository is an Agentic Launchpad selection submission workspace.
+
+## Submission Model
+
+- The full repository is the submission artefact.
+- `agentic-launchpad-selection-submission.md` is the supplied template and summary layer, not the only evidence of work.
+- The template should summarise the work and point to repo evidence rather than duplicate every detail.
+- `Challenge_info.md` remains the source-of-truth challenge brief.
+- `Original_Files/` remains read-only for this workflow.
 
 ## Operating Notes
 
 - Use `Challenge_info.md` as the source of truth for the challenge brief.
-- Use `agentic-launchpad-selection-submission.md` as the submission template.
-- Treat the full repository as the submission artefact; the supplied Markdown file is the required template/summary, not the only evidence.
+- Use `agentic-launchpad-selection-submission.md` as the supplied template and summary.
 - Do not modify anything inside `Original_Files/`.
 - Prefer small, local changes that preserve the structure of the provided materials.
 - If you need to inspect challenge two tasks, work in:
@@ -31,6 +38,14 @@ This repository is an Agentic Launchpad selection submission workspace.
 - When asked to make documentation changes, keep wording close to the source unless the user wants a rewrite.
 - When asked to create submission content, match the template headings and keep the answers concrete.
 - For challenge two work, follow `challenge_two/Agents.md` and any more specific nested `Agents.md` file before starting the task.
+
+## Part 2 Artefact Expectations
+
+- Code Review: written review notes covering app purpose, bugs, risks, design concerns, first change, what to leave alone, and missing information.
+- Clarifying Questions: written questions, top two priorities with reasons, assumptions, smallest useful version, and risk if assumptions are wrong.
+- PRD To Tickets: ordered implementation tickets with acceptance checks, build-order reasoning, highest-risk ticket, excluded v1 item, and remaining question.
+- API Script: actual script file plus expected or actual output, assumptions, and next improvement notes.
+- Failing Tests: code or test changes where appropriate plus notes classifying valid failures versus wrong or misleading tests.
 
 ## Challenge Two Notes
 
