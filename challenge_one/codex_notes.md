@@ -784,3 +784,17 @@ If you want a stricter convention going forward, I would recommend this policy:
 - Explicit allowlist for conventional filenames such as `README.md`, `Dockerfile`, `LICENSE`, `package.json`, and React component files if needed.
 
 That gives you a CI rule that catches accidental messy names without requiring disruptive renames of existing valid files.
+
+## User question
+
+I want you to please expand this goal ive written into a goal that follows best practices from Open AI on using the Goal flag: design and Build a basic CI workflow for this Repo.
+
+## Assistant response
+
+OpenAI's Codex goal guidance says a strong goal should be specific enough for Codex to know whether it has succeeded. For this task, that means the goal should include the intended outcome, the repo context, the constraints, and clear completion criteria.
+
+A stronger goal would be:
+
+Design and build a basic GitHub Actions CI workflow for this repository that runs on pull requests and pushes, separates checks into clear jobs for the repo's main file types, avoids modifying `Original_Files/`, uses least-privilege workflow permissions, and documents how to run or debug the checks locally. The goal is complete when the workflow file is added, the checks are scoped to the current repo structure, and my submission notes explain what was built, what passed, what is still incomplete, and what I would add next.
+
+This works better than the shorter version because it gives Codex a clear outcome, the relevant safety boundary, the expected shape of the workflow, and the definition of done. It also keeps the scope realistic for challenge one: the CI workflow can focus on lint and validation now, while tests, security scans, or deployment can be added later as follow-up work.

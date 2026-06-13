@@ -5,7 +5,7 @@
 Technology chosen: Github actions
 Learning task time spent:
 Aim for around 60 minutes. Extra time is optional and will not earn extra points.
-Goal: Build a basic CI/CD pipeline for this Repo that performs Lint checks.
+Goal: Design and build a basic GitHub Actions CI workflow for this repository that runs on pull requests and pushes, separates checks into clear jobs for the repo's main file types, avoids modifying `Original_Files/`, uses least-privilege workflow permissions, and documents how to run or debug the checks locally. The goal is complete when the workflow file is added, the checks are scoped to the current repo structure, and my submission notes explain what was built, what passed, what is still incomplete, and what I would add next.
 What I tried:
 What worked:
 What did not work yet:
