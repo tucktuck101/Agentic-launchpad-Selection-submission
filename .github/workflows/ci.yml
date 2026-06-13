@@ -30,9 +30,9 @@ jobs:
             Challenge_info.md \
             agentic-launchpad-selection-submission.md \
             challenge_one/*.md \
-            launchpad-code-review-app/code-review-app/README.md \
-            launchpad-failing-tests-app/failing-tests-app/README.md \
-            launchpad-api-script-server/api-script-server/README.md; then
+            challenge_two/launchpad-code-review-app/code-review-app/README.md \
+            challenge_two/failing-tests-app/README.md \
+            challenge_two/launchpad-api-script-server/api-script-server/README.md; then
             echo "Unresolved merge marker found in Markdown files."
             exit 1
           fi
@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: launchpad-code-review-app/code-review-app
+        working-directory: challenge_two/launchpad-code-review-app/code-review-app
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -59,7 +59,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: launchpad-code-review-app/code-review-app/package-lock.json
+          cache-dependency-path: challenge_two/launchpad-code-review-app/code-review-app/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -75,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: launchpad-failing-tests-app/failing-tests-app
+        working-directory: challenge_two/failing-tests-app
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -85,7 +85,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: launchpad-failing-tests-app/failing-tests-app/package-lock.json
+          cache-dependency-path: challenge_two/failing-tests-app/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: launchpad-api-script-server/api-script-server
+        working-directory: challenge_two/launchpad-api-script-server/api-script-server
     steps:
       - name: Check out repository
         uses: actions/checkout@v6

@@ -9,9 +9,9 @@ This repository is an Agentic Launchpad selection submission workspace.
 - Do not modify anything inside `Original_Files/`.
 - Prefer small, local changes that preserve the structure of the provided materials.
 - If you need to inspect the challenge apps, work in:
-  - `launchpad-code-review-app/`
-  - `launchpad-failing-tests-app/`
-  - `launchpad-api-script-server/`
+  - `challenge_two/launchpad-code-review-app/`
+  - `challenge_two/failing-tests-app/`
+  - `challenge_two/launchpad-api-script-server/`
 
 ## Editing Rules
 

@@ -8,9 +8,9 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 - `agentic-launchpad-selection-submission.md`: submission template to fill in as work is completed.
 - `Agents.md`: local guidance for Codex and future agentic work in this repo.
 - `Codex.log`: timestamped one-line summaries of Codex actions.
-- `launchpad-code-review-app/`: Express/React code review task.
-- `launchpad-failing-tests-app/`: Express failing-tests task.
-- `launchpad-api-script-server/`: tiny Python API and scripting task.
+- `challenge_two/launchpad-code-review-app/`: Express/React code review task.
+- `challenge_two/failing-tests-app/`: Express failing-tests task.
+- `challenge_two/launchpad-api-script-server/`: tiny Python API and scripting task.
 - `Original_Files/`: original reference materials. Do not modify files in this folder.
 
 ## Setup Notes
@@ -54,7 +54,7 @@ test -f Challenge_info.md
 test -f agentic-launchpad-selection-submission.md
 test -f Requirements.txt
 test -f Agents.md
-if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md launchpad-code-review-app/code-review-app/README.md launchpad-failing-tests-app/failing-tests-app/README.md launchpad-api-script-server/api-script-server/README.md; then
+if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/launchpad-code-review-app/code-review-app/README.md challenge_two/failing-tests-app/README.md challenge_two/launchpad-api-script-server/api-script-server/README.md; then
   echo "Unresolved merge marker found in Markdown files."
   exit 1
 fi
@@ -64,18 +64,18 @@ if git ls-files --error-unmatch Original_Files >/dev/null 2>&1; then
 fi
 
 # Code review app
-cd launchpad-code-review-app/code-review-app
+cd challenge_two/launchpad-code-review-app/code-review-app
 npm ci
 node --check server/index.js
 npm exec -- vite build --outDir /tmp/code-review-app-dist --emptyOutDir
 
 # Failing tests app
-cd ../../launchpad-failing-tests-app/failing-tests-app
+cd ../../failing-tests-app
 npm ci
 npm test
 
 # Python API
-cd ../../launchpad-api-script-server/api-script-server
+cd ../launchpad-api-script-server/api-script-server
 python3 -m py_compile server.py
 python3 server.py &
 server_pid=$!

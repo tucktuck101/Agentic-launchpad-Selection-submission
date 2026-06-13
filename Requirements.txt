@@ -11,9 +11,9 @@ nodejs
 npm
 
 [npm]
-launchpad-code-review-app/code-review-app
-launchpad-failing-tests-app/failing-tests-app
+challenge_two/launchpad-code-review-app/code-review-app
+challenge_two/failing-tests-app
 
 [python]
 # The provided API server uses only the Python standard library.
-launchpad-api-script-server/api-script-server
+challenge_two/launchpad-api-script-server/api-script-server

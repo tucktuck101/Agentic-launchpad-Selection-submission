@@ -477,7 +477,7 @@ jobs:
 
       - name: Compile Python files
         run: |
-          python -m py_compile launchpad-api-script-server/api-script-server/server.py
+          python -m py_compile challenge_two/launchpad-api-script-server/api-script-server/server.py
 
   javascript-check:
     name: JavaScript syntax check
@@ -494,9 +494,9 @@ jobs:
 
       - name: Check JavaScript syntax
         run: |
-          node --check launchpad-code-review-app/code-review-app/server/index.js
-          node --check launchpad-failing-tests-app/failing-tests-app/server.js
-          node --check launchpad-failing-tests-app/failing-tests-app/parcelRules.js
+          node --check challenge_two/launchpad-code-review-app/code-review-app/server/index.js
+          node --check challenge_two/failing-tests-app/server.js
+          node --check challenge_two/failing-tests-app/parcelRules.js
 ```
 
 This is intentionally modest. It gives useful feedback without adding many new dependencies.
@@ -883,7 +883,7 @@ For Node projects, `actions/setup-node` can cache npm dependencies:
   with:
     node-version: 18
     cache: npm
-    cache-dependency-path: launchpad-failing-tests-app/failing-tests-app/package-lock.json
+    cache-dependency-path: challenge_two/failing-tests-app/package-lock.json
 ```
 
 Use caching for speed, not correctness. A workflow should still be able to run correctly from a clean environment.
@@ -991,7 +991,7 @@ Goal:
 Add a job that runs:
 
 ```bash
-python -m py_compile launchpad-api-script-server/api-script-server/server.py
+python -m py_compile challenge_two/launchpad-api-script-server/api-script-server/server.py
 ```
 
 Goal:
