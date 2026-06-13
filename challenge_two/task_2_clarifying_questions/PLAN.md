@@ -45,6 +45,13 @@ Follow the most specific applicable instruction. Reference the instruction files
 - Check that the section contains 5 to 8 questions, 2 prioritized questions, 3 assumptions, a smallest version, and a main risk.
 - Check the Clarifying Questions section of `challenge_two/codex_notes.md` for leftover `TBD`, `TODO`, or `FIXME` placeholders. Ignore placeholders in later task sections that have not run yet.
 
+## Done When
+
+- The Clarifying Questions section in `challenge_two/codex_notes.md` is submission-ready.
+- Required question, priority, assumption, version-one, and risk counts are satisfied.
+- No feature code, tickets, scripts, tests, or app changes have been created for this task.
+- Evidence or skipped-check reasons are recorded.
+
 ## codex_notes.md Update Instructions
 
 Update `challenge_two/codex_notes.md` under `## Clarifying Questions` with:

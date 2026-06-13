@@ -48,6 +48,13 @@ Follow the most specific applicable instruction. Reference the instruction files
 - Check the Code Review section of `challenge_two/codex_notes.md` for leftover `TBD`, `TODO`, or `FIXME` placeholders. Ignore placeholders in later task sections that have not run yet.
 - Running the app is optional for review; if run, record the command and result in notes.
 
+## Done When
+
+- The Code Review section in `challenge_two/codex_notes.md` is submission-ready.
+- At least three concrete bugs, risks, or design concerns are recorded with evidence.
+- No app code has been changed for this review task.
+- Verification notes or skipped-check reasons are recorded.
+
 ## codex_notes.md Update Instructions
 
 Update `challenge_two/codex_notes.md` under `## Code Review` with:

@@ -31,6 +31,16 @@ Complete all Part 2 technical tasks and produce concrete material in `codex_note
 - Do not update `../agentic-launchpad-selection-submission.md` unless the user explicitly asks for a final-copy step.
 - Commit focused changes after each completed task during separate task runs. For the future single-run flow in `SINGLE_RUN_GOAL.md`, defer intermediate commits and produce one focused commit after all five tasks are complete.
 
+## Codex Best-Practice Structure
+
+The future execution flow should keep these parts explicit:
+
+- Goal: complete the requested Challenge Two task or all five tasks in order.
+- Context: use `../Challenge_info.md`, this file, the relevant task-level `PLAN.md`, task-folder `Agents.md`, and task source files.
+- Constraints: follow the most specific applicable instruction, keep edits scoped, avoid forbidden areas, and preserve user changes.
+- Verification: run task-specific checks where practical and record commands, output, assumptions, and blockers.
+- Done when: the relevant `codex_notes.md` section is submission-ready, evidence is captured, verification is complete or blocked with a reason, and the diff is scoped.
+
 ## Task Folders
 
 - Code Review: `task_1_code_review/` with `task_1_code_review/PLAN.md`

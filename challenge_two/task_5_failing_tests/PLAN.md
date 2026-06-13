@@ -53,6 +53,13 @@ Follow the most specific applicable instruction. Reference the instruction files
 - Use `git diff -- challenge_two/task_5_failing_tests challenge_two/codex_notes.md` to confirm changes are scoped.
 - Use `git diff --check` before final commit.
 
+## Done When
+
+- The Failing Tests section in `challenge_two/codex_notes.md` classifies valid broken-code tests and wrong or misleading tests.
+- Minimal app and/or test changes align behavior with the product rules.
+- Pre-edit and post-edit `npm test` evidence is recorded, or a blocker is documented.
+- The final diff is scoped to the failing-tests task and Challenge Two notes.
+
 ## codex_notes.md Update Instructions
 
 Update `challenge_two/codex_notes.md` under `## Failing Tests` with:

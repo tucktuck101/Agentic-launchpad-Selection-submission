@@ -29,6 +29,12 @@ These instructions apply to Challenge Two work.
 - When drafting submission content, update the matching section in `codex_notes.md`, match the template headings where useful, and keep answers concrete rather than polished or generic.
 - Keep chat replies short when the full detail is better recorded in files.
 
+## Codex Execution Shape
+
+- Keep each task anchored to a clear goal, concrete context files, explicit constraints, practical verification, and a done-when check.
+- Use `PLAN.md`, task-level `PLAN.md` files, and `SINGLE_RUN_GOAL.md` for orchestration details rather than duplicating long instructions here.
+- Before moving to the next task, confirm the relevant `codex_notes.md` section is complete, evidence is recorded, and forbidden areas remain untouched.
+
 ## Documentation Tasks
 
 - For Clarifying Questions and PRD To Tickets, do not build the feature.

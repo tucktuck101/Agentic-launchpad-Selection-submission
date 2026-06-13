@@ -52,6 +52,13 @@ Follow the most specific applicable instruction. Reference the instruction files
 - Use `git diff -- challenge_two` to confirm expected script and notes changes only.
 - If tests or lint scripts exist for this task, run the relevant lightweight checks.
 
+## Done When
+
+- The consumer script exists in an allowed challenge-two working location.
+- The API Script section in `challenge_two/codex_notes.md` includes the script path or partial script, output, assumptions, evidence, and next improvement.
+- The server and script have been run successfully, or the blocker is documented.
+- No API server changes were made unless the blocker required it and the reason is documented.
+
 ## codex_notes.md Update Instructions
 
 Update `challenge_two/codex_notes.md` under `## API Script` with:

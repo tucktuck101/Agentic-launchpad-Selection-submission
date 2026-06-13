@@ -48,6 +48,13 @@ Follow the most specific applicable instruction. Reference the instruction files
 - Check that non-goals are not included as version-one tickets.
 - Check the PRD To Tickets section of `challenge_two/codex_notes.md` for leftover `TBD`, `TODO`, or `FIXME` placeholders. Ignore placeholders in later task sections that have not run yet.
 
+## Done When
+
+- The PRD To Tickets section in `challenge_two/codex_notes.md` is submission-ready.
+- The ticket list has 4 to 8 ordered tickets and one acceptance check per ticket.
+- Version-one exclusions and remaining clarifying question are recorded.
+- No return-request feature code, database migrations, scripts, tests, or app changes have been created for this task.
+
 ## codex_notes.md Update Instructions
 
 Update `challenge_two/codex_notes.md` under `## PRD To Tickets` with:
