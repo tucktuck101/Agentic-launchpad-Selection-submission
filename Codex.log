@@ -32,3 +32,4 @@
 2026-06-13T06:47:33Z Verified CI checks with YAML parsing, Python API smoke test, and temporary npm installs.
 2026-06-13T07:09:30Z Reviewed challenge-two brief and existing agent instructions for workflow recommendations.
 2026-06-13T07:15:33Z Updated repo references for challenge-two app directory move and verified new paths.
+2026-06-13T07:19:30Z Added root and nested Agents.md guidance for challenge-two workflow.

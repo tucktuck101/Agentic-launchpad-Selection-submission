@@ -27,6 +27,13 @@ This repository is an Agentic Launchpad selection submission workspace.
 - Read the relevant challenge instructions before editing.
 - When asked to make documentation changes, keep wording close to the source unless the user wants a rewrite.
 - When asked to create submission content, match the template headings and keep the answers concrete.
+- For challenge two work, follow `challenge_two/Agents.md` and any more specific nested `Agents.md` file before starting the task.
+
+## Challenge Two Notes
+
+- Challenge two work should attempt all technical tasks because AI is being used extensively.
+- Use `challenge_two/` for challenge-two notes, helper scripts, and task-specific working files unless the challenge app itself needs a small code or test change.
+- Keep task outputs concrete: commands run, observations, assumptions, changes made, and next improvements.
 
 ## Challenge One Notes
 
