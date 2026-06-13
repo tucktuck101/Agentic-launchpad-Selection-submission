@@ -12,8 +12,8 @@ This repository is an Agentic Launchpad selection submission workspace.
   - `challenge_two/launchpad-code-review-app/`
   - `challenge_two/clarifying-questions/`
   - `challenge_two/prd-to-tickets/`
-  - `challenge_two/failing-tests-app/`
   - `challenge_two/launchpad-api-script-server/`
+  - `challenge_two/failing-tests-app/`
 
 ## Editing Rules
 

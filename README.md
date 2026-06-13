@@ -1,6 +1,6 @@
 # Agentic Launchpad Selection Submission
 
-This repository is a working space for an Agentic Launchpad selection challenge. It contains the challenge brief, a submission template, and three small technical tasks used to demonstrate learning process, technical judgment, debugging, and communication.
+This repository is a working space for an Agentic Launchpad selection challenge. It contains the challenge brief, a submission template, and task folders used to demonstrate learning process, technical judgment, debugging, and communication.
 
 ## Repository Contents
 
@@ -12,8 +12,8 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 - `challenge_two/launchpad-code-review-app/`: Express/React code review task.
 - `challenge_two/clarifying-questions/`: return-request clarification task.
 - `challenge_two/prd-to-tickets/`: return-request PRD ticket breakdown task.
-- `challenge_two/failing-tests-app/`: Express failing-tests task.
 - `challenge_two/launchpad-api-script-server/`: tiny Python API and scripting task.
+- `challenge_two/failing-tests-app/`: Express failing-tests task.
 - `Original_Files/`: original reference materials. Do not modify files in this folder.
 
 ## Setup Notes
