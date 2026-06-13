@@ -26,6 +26,7 @@ Analyze the parcel quote test failures, classify them against product rules, mak
 - App code changes are made only for real code bugs.
 - Test changes are made only for wrong or misleading tests.
 - `test_output_after.txt` captures post-edit verification output.
+- `test_failure_analysis.md` includes edge cases or tests that should be added next.
 - Remaining risks or blockers are recorded.
 
 ## Boundaries

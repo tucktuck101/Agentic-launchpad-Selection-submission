@@ -25,7 +25,8 @@ These instructions apply to the Challenge Two PRD-to-tickets task.
 - Make each ticket independently understandable and verifiable.
 - Prefer a sequence that establishes data/state first, then customer request flow, then support review, then customer status visibility.
 - Keep acceptance checks observable and concise.
-- Update the PRD To Tickets section in `../codex_notes.md` with submission-ready answers and evidence.
+- Write the full reviewer-facing artefact in this task folder: `README.md` as the ticket index and ticket files in `tickets/`.
+- Optionally update `../codex_notes.md` only as a brief cross-task index or pointer.
 
 ## Boundaries
 

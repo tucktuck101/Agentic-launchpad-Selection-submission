@@ -18,6 +18,7 @@ Create a task-local API consumer script and evidence for the low-stock report.
 - Read the API Script brief in `Challenge_info.md`.
 - Inspect the API server code and existing task files before creating or replacing artefacts.
 - Prefer running `python3 server.py` from `api-script-server/` unless Docker is needed.
+- Keep the consumer script in `challenge_two/task_4_api_script/`, not inside `api-script-server/`, unless a clear reason is documented.
 
 ## Definition Of Done
 

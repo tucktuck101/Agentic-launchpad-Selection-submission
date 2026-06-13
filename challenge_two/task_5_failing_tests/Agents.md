@@ -6,7 +6,8 @@ These instructions apply to the Challenge Two failing-tests app.
 
 - Work out which test failures expose application bugs and which tests are wrong or misleading.
 - Make minimal changes needed to align the app and tests with the product rules.
-- Record the classification and changes in `../codex_notes.md`.
+- Write the full reviewer-facing artefacts in this task folder: `test_failure_analysis.md`, `test_output_before.txt`, and `test_output_after.txt`.
+- Optionally update `../codex_notes.md` only as a brief cross-task index or pointer.
 
 ## Product Rules
 
@@ -25,10 +26,12 @@ These instructions apply to the Challenge Two failing-tests app.
 - Classify failures as valid tests exposing code bugs or tests with wrong expectations.
 - Make the smallest app or test edits needed.
 - Re-run `npm test` after changes.
-- Update the Failing Tests section in `../codex_notes.md` with valid tests, wrong or misleading tests, changes made, and evidence.
+- Include edge cases or tests that should be added next in `test_failure_analysis.md`.
 
 ## Boundaries
 
 - Do not change product rules to match current code.
+- Change app code only for real code bugs.
+- Change tests only for wrong or misleading tests.
 - Do not rewrite the app structure unless the user explicitly asks.
 - Do not edit `node_modules/`, build output, caches, or generated files.

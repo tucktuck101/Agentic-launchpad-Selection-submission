@@ -20,9 +20,10 @@ These instructions apply to the Challenge Two API script task.
 
 - Prefer `python3 server.py` from `api-script-server/` unless Docker is specifically useful.
 - Prefer Python standard-library modules for the consumer script unless the repo already has a dependency.
-- Put the consumer script in `challenge_two/` or another challenge-two working location, not inside reference server code, unless there is a clear reason.
+- Put the consumer script in `challenge_two/task_4_api_script/`, not inside `api-script-server/`, unless there is a clear reason.
 - Capture actual output when the server can be run locally.
-- Update the API Script section in `../codex_notes.md` with the script path or partial script, output, assumptions, evidence, and one improvement to make next.
+- Write the full reviewer-facing artefacts in this task folder: script, captured output, and README/notes with assumptions and next improvements.
+- Optionally update `../codex_notes.md` only as a brief cross-task index or pointer.
 
 ## Boundaries
 

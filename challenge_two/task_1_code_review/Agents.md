@@ -17,7 +17,8 @@ These instructions apply to the Challenge Two code review app.
 - Include the first change you would make and why.
 - Include what you would leave alone for now.
 - Include extra information that would help the review.
-- Update the Code Review section in `../codex_notes.md` with the review findings and evidence.
+- Write the full reviewer-facing review in `code-review-notes.md` in this task folder.
+- Optionally update `../codex_notes.md` only as a brief cross-task index or pointer.
 
 ## Review Focus
 
@@ -31,5 +32,6 @@ These instructions apply to the Challenge Two code review app.
 ## Boundaries
 
 - Avoid broad refactors.
+- Do not fix app code unless the user explicitly asks for fixes.
 - Do not install new dependencies just to perform the review.
 - Do not modify `node_modules/`, build output, or generated files.
