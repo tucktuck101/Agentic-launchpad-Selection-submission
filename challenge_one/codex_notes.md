@@ -746,3 +746,41 @@ For an AI test repair workflow, a strong baseline is:
 - Keep all actions auditable in GitHub.
 
 This makes the AI agent useful without letting it become the final authority. The agent accelerates investigation and proposes a fix; GitHub Actions verifies the fix; humans decide whether the fix should become part of the project.
+
+## User question
+
+i was refering to all files in this repo. i want to know if we are using a consistent naming style (camel case etc) in it and what is being used? the purpose is to make sure that I can use this as a Github job to enforce file name conventions/styling.
+
+## Assistant response
+
+I checked the tracked project files outside `Original_Files/` and excluding `node_modules`. The repo does not use one single naming style everywhere, so a filename-convention GitHub Actions job should enforce conventions by category instead of enforcing one universal rule.
+
+The main styles in use are:
+
+- Kebab-case for most application and script directories: `launchpad-api-script-server`, `api-script-server`, `launchpad-code-review-app`, `code-review-app`, `launchpad-failing-tests-app`, `failing-tests-app`, `install-requirements.sh`.
+- Snake_case for challenge-one authored Markdown files and notes: `challenge_one`, `codex_notes.md`, `github_actions_ci_learning_article.md`, `Challenge_info.md`.
+- Standard conventional filenames with uppercase or fixed casing: `README.md`, `LICENSE`, `Dockerfile`, `.gitignore`.
+- PascalCase for a React component entry file: `App.jsx`.
+- camelCase for some JavaScript domain files: `parcelRules.js`, `parcelRules.test.js`.
+- Lowercase generic source/config files: `server.js`, `server.test.js`, `server.py`, `index.js`, `index.html`, `styles.css`, `package.json`, `package-lock.json`.
+
+So the repo is partially consistent, but not consistent under one style such as "all kebab-case" or "all snake_case".
+
+For a GitHub Actions filename-style check, the best rule would be:
+
+- Exclude third-party/generated paths: `Original_Files/**`, `**/node_modules/**`.
+- Allow conventional root/project filenames: `.gitignore`, `README.md`, `LICENSE`, `Dockerfile`, `Agents.md`, `Codex.log`, `Challenge_info.md`, `Requirements.txt`.
+- Allow lowercase kebab-case names for directories and scripts.
+- Allow snake_case for challenge notes and article files under `challenge_one/`.
+- Allow normal ecosystem filenames: `package.json`, `package-lock.json`.
+- Allow JS/React exceptions already present: `App.jsx`, `parcelRules.js`, `parcelRules.test.js`.
+
+If you want a stricter convention going forward, I would recommend this policy:
+
+- New directories: lowercase kebab-case.
+- New workflow files: lowercase kebab-case or short purpose names ending in `.yml`, for example `ci.yml` or `security-scan.yml`.
+- New Markdown article/note files under `challenge_one/`: snake_case, matching the existing challenge notes.
+- New ordinary source files: lowercase kebab-case unless the framework expects another style.
+- Explicit allowlist for conventional filenames such as `README.md`, `Dockerfile`, `LICENSE`, `package.json`, and React component files if needed.
+
+That gives you a CI rule that catches accidental messy names without requiring disruptive renames of existing valid files.
