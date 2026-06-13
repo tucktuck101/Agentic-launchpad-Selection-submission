@@ -5,48 +5,24 @@ These instructions apply to Challenge Two work.
 ## Scope
 
 - Use Part 2 of `../Challenge_info.md` as the source of truth.
-- Store submission-ready Challenge Two material in `codex_notes.md`.
+- `challenge_two/` owns all Part 2 artefacts.
+- Each task folder owns its own evidence, notes, outputs, scripts, tickets, and verification records.
+- Keep work inside `challenge_two/` unless updating shared repo navigation or the required `../Codex.log`.
+- Do not move supplied app files unless necessary and explained in the task notes.
 - Do not edit `../agentic-launchpad-selection-submission.md` unless the user explicitly asks for a final-copy step.
-- Because AI is being used extensively, attempt all technical tasks:
-  - Code Review
-  - Clarifying Questions
-  - PRD To Tickets
-  - API Script
-  - Failing Tests
-- Keep work inside `challenge_two/` unless updating shared repo documentation or the required `../Codex.log`.
+- `../Original_Files/` remains read-only.
 
-## Task Workflow
+## Workflow
 
-- Read the task instructions before inspecting or editing task files.
-- Read the matching task-folder `Agents.md` before starting task-specific work.
-- Prefer this order unless the user asks otherwise:
-  1. Code Review
-  2. Clarifying Questions
-  3. PRD To Tickets
-  4. API Script
-  5. Failing Tests
-- Capture useful evidence as you work: commands run, actual output, decisions, assumptions, and follow-up improvements.
-- When drafting submission content, update the matching section in `codex_notes.md`, match the template headings where useful, and keep answers concrete rather than polished or generic.
-- Keep chat replies short when the full detail is better recorded in files.
+- Work on one technical challenge at a time, in the order listed in `PLAN.md`, unless the user asks otherwise.
+- Before doing a task, inspect existing task files and task-local artefacts.
+- Read the matching task-folder `Agents.md` and `PLAN.md` before task-specific work.
+- Produce reviewer-facing artefacts in the task folder, not only summary text in `codex_notes.md`.
+- Capture useful evidence: paths, commands, important output, assumptions, decisions, blockers, and next improvements.
+- Record meaningful steps in `../Codex.log` with one timestamped line.
 
-## Codex Execution Shape
+## Boundaries
 
-- Keep each task anchored to a clear goal, concrete context files, explicit constraints, practical verification, and a done-when check.
-- Use `PLAN.md`, task-level `PLAN.md` files, and `SINGLE_RUN_GOAL.md` for orchestration details rather than duplicating long instructions here.
-- Before moving to the next task, confirm the relevant `codex_notes.md` section is complete, evidence is recorded, and forbidden areas remain untouched.
-
-## Documentation Tasks
-
-- For Clarifying Questions and PRD To Tickets, do not build the feature.
-- Separate facts from assumptions.
-- Prefer small version-one scope and make tradeoffs explicit.
-- Include the risks requested by the brief.
-
-## File Hygiene
-
-- Do not edit `../Original_Files/`.
 - Do not edit `node_modules/`, build output, caches, or generated files.
 - Use `apply_patch` for manual edits.
-- Append to existing notes and logs instead of rewriting earlier work unless the user asks for cleanup.
-- Treat `codex_notes.md` as the canonical Challenge Two notes file.
-- Record meaningful steps in `../Codex.log` with one timestamped line.
+- Keep instructions and notes concise, concrete, and tied to the challenge brief.
