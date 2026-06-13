@@ -798,3 +798,43 @@ A stronger goal would be:
 Design and build a basic GitHub Actions CI workflow for this repository that runs on pull requests and pushes, separates checks into clear jobs for the repo's main file types, avoids modifying `Original_Files/`, uses least-privilege workflow permissions, and documents how to run or debug the checks locally. The goal is complete when the workflow file is added, the checks are scoped to the current repo structure, and my submission notes explain what was built, what passed, what is still incomplete, and what I would add next.
 
 This works better than the shorter version because it gives Codex a clear outcome, the relevant safety boundary, the expected shape of the workflow, and the definition of done. It also keeps the scope realistic for challenge one: the CI workflow can focus on lint and validation now, while tests, security scans, or deployment can be added later as follow-up work.
+
+## User question
+
+Implement the above CI workflow plan. Add the workflow under `.github/workflows/`, scope jobs to the repo's actual structure and tooling, do not modify `Original_Files/`, use least-privilege permissions starting from `contents: read`, and update documentation with local run/debug instructions.
+
+## Assistant response
+
+I implemented the first GitHub Actions workflow as `.github/workflows/ci.yml`.
+
+What was built:
+
+- One `CI` workflow that runs on `push` and `pull_request`.
+- Workflow-level `permissions: contents: read`, matching least-privilege guidance for read-only CI checks.
+- A `repo-docs-guard` job that verifies required challenge files exist, scans Markdown for unresolved merge markers, and confirms `Original_Files/` has no tracked files.
+- A `code-review-app` job for `launchpad-code-review-app/code-review-app` that runs `npm ci`, checks `server/index.js` syntax, and builds the Vite client.
+- A `failing-tests-app` job for `launchpad-failing-tests-app/failing-tests-app` that runs `npm ci` and `npm test` with `continue-on-error` because this challenge app currently has intentional failing tests and at least one misleading expectation.
+- A `python-api` job for `launchpad-api-script-server/api-script-server` that checks Python syntax and smoke-tests `GET /api/items`.
+- README documentation showing the CI layout and the equivalent local debug commands.
+
+What passed locally:
+
+- Python syntax checking for `server.py` passed using `python3`.
+- The Python API smoke test returned the expected item JSON when localhost binding was allowed.
+- A clean temporary install of the code-review app passed `npm ci`, `node --check server/index.js`, and the Vite build.
+- A clean temporary install of the failing-tests app ran and produced the expected challenge failures, so the check is wired to the real test suite.
+- The repository inspection confirmed there was no existing `.github` workflow and `Original_Files/` remains outside the tracked workflow changes.
+
+What is incomplete:
+
+- The failing-tests app is not ready to be a blocking green gate. The suite currently reports failures around exact-free-shipping behavior, packed status expectation, WELCOME10 discount behavior, and one API test setup issue.
+- The checked-in `node_modules` for the code-review app were not reliable on this machine because Rollup's platform-specific optional dependency was missing before a clean install. The workflow avoids that local dependency problem by using `npm ci` from the lockfile on the GitHub runner.
+- There is no real linter configured yet for JavaScript, Python, Markdown, or formatting, so this CI uses syntax/build/smoke checks rather than pretending a lint standard exists.
+
+What I would add next:
+
+- Fix or classify the failing parcel tests, then remove `continue-on-error`.
+- Add ESLint or another JavaScript linter if the repo adopts a style standard.
+- Add markdownlint or a link checker for the challenge documentation.
+- Add a Docker build check for `launchpad-api-script-server/api-script-server/Dockerfile`.
+- Add dependency/security checks after the basic CI stays stable.

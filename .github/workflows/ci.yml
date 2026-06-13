@@ -1,0 +1,121 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  repo-docs-guard:
+    name: Repository docs and guardrails
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Verify required files
+        run: |
+          test -f README.md
+          test -f Challenge_info.md
+          test -f agentic-launchpad-selection-submission.md
+          test -f Requirements.txt
+          test -f Agents.md
+
+      - name: Check Markdown for unresolved merge markers
+        run: |
+          if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- \
+            README.md \
+            Challenge_info.md \
+            agentic-launchpad-selection-submission.md \
+            challenge_one/*.md \
+            launchpad-code-review-app/code-review-app/README.md \
+            launchpad-failing-tests-app/failing-tests-app/README.md \
+            launchpad-api-script-server/api-script-server/README.md; then
+            echo "Unresolved merge marker found in Markdown files."
+            exit 1
+          fi
+
+      - name: Protect Original_Files from tracked changes
+        run: |
+          if git ls-files --error-unmatch Original_Files >/dev/null 2>&1; then
+            echo "Original_Files contains tracked files. Keep reference material out of CI-managed changes."
+            exit 1
+          fi
+
+  code-review-app:
+    name: Code review app checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: launchpad-code-review-app/code-review-app
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: launchpad-code-review-app/code-review-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check server syntax
+        run: node --check server/index.js
+
+      - name: Build Vite client
+        run: npm exec -- vite build --outDir /tmp/code-review-app-dist --emptyOutDir
+
+  failing-tests-app:
+    name: Failing tests app checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: launchpad-failing-tests-app/failing-tests-app
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: launchpad-failing-tests-app/failing-tests-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run known failing challenge tests
+        continue-on-error: true
+        run: npm test
+
+  python-api:
+    name: Python API checks
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: launchpad-api-script-server/api-script-server
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Check Python syntax
+        run: python -m py_compile server.py
+
+      - name: Smoke test API endpoint
+        run: |
+          python server.py &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          sleep 2
+          curl --fail --silent --show-error http://127.0.0.1:5050/api/items

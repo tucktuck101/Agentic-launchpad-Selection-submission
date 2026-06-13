@@ -35,3 +35,53 @@ git config user.email "you@example.com"
 Use `Challenge_info.md` as the source of truth for the challenge and fill in `agentic-launchpad-selection-submission.md` as work progresses. Keep notes concrete: what was tried, what changed, what worked, what did not, and what would be done next.
 
 `Original_Files/` is intentionally ignored by Git and should remain unchanged.
+
+## Continuous Integration
+
+The basic GitHub Actions workflow lives in `.github/workflows/ci.yml`. It runs on pushes and pull requests with `contents: read` permissions and separates checks by repo area:
+
+- Repository docs and guardrails: confirms key files exist, checks Markdown for merge markers, and verifies `Original_Files/` is not tracked.
+- Code review app: installs dependencies with `npm ci`, checks the Express server syntax, and builds the Vite client.
+- Failing tests app: installs dependencies and runs `npm test` as a known-failing challenge signal with `continue-on-error`.
+- Python API: checks `server.py` syntax and smoke-tests `GET /api/items`.
+
+Run or debug the checks locally with:
+
+```bash
+# Repository/docs guard
+test -f README.md
+test -f Challenge_info.md
+test -f agentic-launchpad-selection-submission.md
+test -f Requirements.txt
+test -f Agents.md
+if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md launchpad-code-review-app/code-review-app/README.md launchpad-failing-tests-app/failing-tests-app/README.md launchpad-api-script-server/api-script-server/README.md; then
+  echo "Unresolved merge marker found in Markdown files."
+  exit 1
+fi
+if git ls-files --error-unmatch Original_Files >/dev/null 2>&1; then
+  echo "Original_Files contains tracked files."
+  exit 1
+fi
+
+# Code review app
+cd launchpad-code-review-app/code-review-app
+npm ci
+node --check server/index.js
+npm exec -- vite build --outDir /tmp/code-review-app-dist --emptyOutDir
+
+# Failing tests app
+cd ../../launchpad-failing-tests-app/failing-tests-app
+npm ci
+npm test
+
+# Python API
+cd ../../launchpad-api-script-server/api-script-server
+python3 -m py_compile server.py
+python3 server.py &
+server_pid=$!
+trap 'kill "$server_pid"' EXIT
+sleep 2
+curl --fail --silent --show-error http://127.0.0.1:5050/api/items
+```
+
+The failing-tests app is intentionally not a required green gate yet because the challenge includes known code bugs and at least one misleading test expectation. The next CI improvement would be to fix or classify those tests, remove `continue-on-error`, and add real linting tools such as ESLint, markdownlint, Ruff, or Prettier if the repo adopts them.

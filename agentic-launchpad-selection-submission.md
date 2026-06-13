@@ -3,18 +3,19 @@
 ## Part 1: Learning Challenge
 
 Technology chosen: Github actions
-Learning task time spent:
+Learning task time spent: Around 60 minutes across learning, planning, implementation, and local verification.
 Aim for around 60 minutes. Extra time is optional and will not earn extra points.
 Goal: Design and build a basic GitHub Actions CI workflow for this repository that runs on pull requests and pushes, separates checks into clear jobs for the repo's main file types, avoids modifying `Original_Files/`, uses least-privilege workflow permissions, and documents how to run or debug the checks locally. The goal is complete when the workflow file is added, the checks are scoped to the current repo structure, and my submission notes explain what was built, what passed, what is still incomplete, and what I would add next.
-What I tried:
-What worked:
-What did not work yet:
-What I would try next:
+What I tried: I inspected the repository first instead of starting with a generic workflow. The repo has Markdown challenge/submission files, a React/Vite and Express code-review app, a separate Express parcel app with Node's built-in test runner, and a small standard-library Python API server. I added one CI workflow with separate jobs for repository docs/guardrails, the code-review app, the failing-tests app, and the Python API.
+What worked: The workflow uses `permissions: contents: read`, runs on `push` and `pull_request`, avoids `Original_Files/`, installs Node dependencies from lockfiles with `npm ci`, checks JavaScript server syntax, builds the Vite client, checks Python syntax, and smoke-tests the Python API endpoint. Local Python syntax checking passed using `python3`, and the API smoke test returned the expected item JSON when localhost binding was allowed. A clean temporary install of the code-review app passed `npm ci`, `node --check server/index.js`, and the Vite build. A clean temporary install of the failing-tests app ran the real test suite and produced the expected challenge failures, which confirms the job is useful for visibility even though it is not ready to be a blocking gate.
+What did not work yet: The failing-tests app is intentionally not green yet because the challenge includes application bugs and at least one misleading test. The existing checked-in `node_modules` for the code-review app are platform-sensitive; Rollup's optional native dependency was missing locally before a fresh install, so CI installs from the lockfile rather than relying on local `node_modules`.
+What I would try next: Fix or classify the failing parcel tests, remove `continue-on-error` once the expected behavior is clear, add real lint tooling such as ESLint or markdownlint if the repo adopts it, add a Docker build check for the Python API Dockerfile, and consider dependency/security checks once the baseline CI is stable.
 Resources used:
 
 - https://youtu.bemFFXuXjVgkUsi=qygEyBhLqM9xayU_
 
 - Codex's knowlege (asking it questions about best approach with workflows vs jobs etc)
+- GitHub Actions docs and official action release pages for current action versions and least-privilege `GITHUB_TOKEN` permissions.
 
 ## Part 2: Technical Work Sample
 
@@ -25,9 +26,9 @@ What I would do next:
 
 ## AI Use
 
-Tools used:
-Where they helped:
-How I checked the output:
+Tools used: Codex, terminal commands, and GitHub Actions documentation.
+Where they helped: Codex helped inspect the repo, identify realistic checks from the actual package scripts and source files, draft the workflow, and capture notes in the submission.
+How I checked the output: I inspected the generated workflow, parsed the workflow as YAML, ran local equivalents where possible, confirmed Python syntax and the API smoke test, verified a clean temporary code-review app install/build, observed the known failing Node tests after a clean temporary install, and documented the limitation with checked-in `node_modules`.
 
 ## Aditional Notes
  Something I want to point out is that a large portion of my time on this project has been spent on enviroment configuration issues due to using a Linux machine that isnt my "default" workstation. some of the info in Codex.log (the file I have set up to track my usage of Codex) will reflect this. honestly its been an interesting part of the challenge as Im normally on MacOS and this Machine is a linux box for me to mess around with. so even though things like using Dev containers are my normal approach to help manage packages etc (mostly in case a package gets comprimised in a supplychain attack and it affect my machine) and show up in git and potentially other areas of this project, ive had to go without because my linux box has 8gb of ram and was crashing VS code. 
