@@ -55,3 +55,4 @@
 2026-06-13 20:35:02 +1200 Updated final submission copy for Challenge Two and AI use.
 2026-06-13 21:01:25 +1200 Added submission model framing to README, created SUBMISSION_MAP.md, and clarified repository-as-submission guidance in Agents.md.
 2026-06-13 21:08:41 +1200 Made AGENTS.md the canonical root agent guidance, added Part 2 artefact expectations, and updated README/CI references.
+2026-06-13 21:27:14 +1200 Refined repo-level submission navigation and documented AGENTS.md as canonical guidance.

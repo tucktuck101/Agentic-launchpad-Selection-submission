@@ -9,7 +9,7 @@ This repository is the submission artefact. Use this path to review the work wit
 3. Review `Challenge_info.md` for the challenge brief used as the source of truth.
 4. Check `challenge_one/codex_notes.md` and `.github/workflows/ci.yml` for the GitHub Actions learning challenge evidence.
 5. Review `challenge_two/codex_notes.md` for submission-ready Challenge Two notes, commands, assumptions, and verification.
-6. Inspect the task folders under `challenge_two/` for supporting code, plans, and task-specific notes.
+6. Inspect the task folders under `challenge_two/` for supporting code, plans, and task-specific notes. The app paths are `challenge_two/task_1_code_review/code-review-app/`, `challenge_two/task_4_api_script/api-script-server/`, and `challenge_two/task_5_failing_tests/`.
 7. Use `Codex.log` and `AGENTS.md` to understand the agent workflow, guardrails, and audit trail.
 
 ## Evidence Locations

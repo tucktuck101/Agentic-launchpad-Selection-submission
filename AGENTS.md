@@ -14,6 +14,7 @@ This repository is an Agentic Launchpad selection submission workspace.
 
 - Use `Challenge_info.md` as the source of truth for the challenge brief.
 - Use `agentic-launchpad-selection-submission.md` as the supplied template and summary.
+- Use root `AGENTS.md` for repository-level guidance; nested task folders may still use `Agents.md`.
 - Do not modify anything inside `Original_Files/`.
 - Prefer small, local changes that preserve the structure of the provided materials.
 - If you need to inspect challenge two tasks, work in:
@@ -40,6 +41,8 @@ This repository is an Agentic Launchpad selection submission workspace.
 - For challenge two work, follow `challenge_two/Agents.md` and any more specific nested `Agents.md` file before starting the task.
 
 ## Part 2 Artefact Expectations
+
+This section describes the expected reviewer-facing artefact shape when a Part 2 task is explicitly started; do not create task deliverables during repo-framing-only work.
 
 - Code Review: written review notes covering app purpose, bugs, risks, design concerns, first change, what to leave alone, and missing information.
 - Clarifying Questions: written questions, top two priorities with reasons, assumptions, smallest useful version, and risk if assumptions are wrong.

@@ -6,6 +6,10 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 
 The full repository is the submission artefact. `agentic-launchpad-selection-submission.md` is the supplied template and summary layer, not the only evidence for the submission. Supporting evidence lives in the task folders, `Codex.log`, `AGENTS.md`, `challenge_one/codex_notes.md`, and `.github/workflows/ci.yml`.
 
+## Reviewer Path
+
+Start with `agentic-launchpad-selection-submission.md` for the supplied summary, then use `SUBMISSION_MAP.md` for the review path through the supporting evidence. The key evidence locations are `challenge_one/codex_notes.md`, `challenge_two/codex_notes.md`, the task folders under `challenge_two/`, `AGENTS.md`, `Codex.log`, and `.github/workflows/ci.yml`.
+
 ## Repository Contents
 
 - `Challenge_info.md`: cleaned Markdown version of the challenge instructions.
@@ -15,11 +19,12 @@ The full repository is the submission artefact. `agentic-launchpad-selection-sub
 - `Codex.log`: timestamped one-line summaries of Codex actions.
 - `challenge_two/PLAN.md`: high-level plan for the Part 2 technical work sample.
 - `challenge_two/codex_notes.md`: canonical staging notes for Challenge Two submission-ready material.
-- `challenge_two/task_1_code_review/`: Express/React code review task.
+- `challenge_two/task_1_code_review/code-review-app/`: Express/React code review app.
 - `challenge_two/task_2_clarifying_questions/`: return-request clarification task.
 - `challenge_two/task_3_prd_to_tickets/`: return-request PRD ticket breakdown task.
-- `challenge_two/task_4_api_script/`: tiny Python API and scripting task.
-- `challenge_two/task_5_failing_tests/`: Express failing-tests task.
+- `challenge_two/task_4_api_script/api-script-server/`: tiny Python API server.
+- `challenge_two/task_4_api_script/low_stock_report.py`: API consumer script.
+- `challenge_two/task_5_failing_tests/`: Express parcel failing-tests app.
 - `Original_Files/`: original reference materials. Do not modify files in this folder.
 
 ## Setup Notes
