@@ -43,7 +43,7 @@ Follow the most specific applicable instruction. Reference the instruction files
 
 - Use `git diff -- challenge_two/codex_notes.md challenge_two/task_2_clarifying_questions` to confirm only notes changed.
 - Check that the section contains 5 to 8 questions, 2 prioritized questions, 3 assumptions, a smallest version, and a main risk.
-- Use `rg -n "TBD|TODO|FIXME" challenge_two/codex_notes.md` to check for leftover placeholders in the Clarifying Questions section.
+- Check the Clarifying Questions section of `challenge_two/codex_notes.md` for leftover `TBD`, `TODO`, or `FIXME` placeholders. Ignore placeholders in later task sections that have not run yet.
 
 ## codex_notes.md Update Instructions
 

@@ -46,7 +46,7 @@ Follow the most specific applicable instruction. Reference the instruction files
 - Use `git diff -- challenge_two/codex_notes.md challenge_two/task_3_prd_to_tickets` to confirm only notes changed.
 - Check that the section contains 4 to 8 tickets and exactly one acceptance check per ticket.
 - Check that non-goals are not included as version-one tickets.
-- Use `rg -n "TBD|TODO|FIXME" challenge_two/codex_notes.md` to check for leftover placeholders in the PRD To Tickets section.
+- Check the PRD To Tickets section of `challenge_two/codex_notes.md` for leftover `TBD`, `TODO`, or `FIXME` placeholders. Ignore placeholders in later task sections that have not run yet.
 
 ## codex_notes.md Update Instructions
 

@@ -45,7 +45,7 @@ Follow the most specific applicable instruction. Reference the instruction files
 ## Verification Commands And Checks
 
 - Use `git diff -- challenge_two/codex_notes.md challenge_two/task_1_code_review` to confirm only notes changed.
-- Use `rg -n "TBD|TODO|FIXME" challenge_two/codex_notes.md` to check for leftover placeholders in the Code Review section.
+- Check the Code Review section of `challenge_two/codex_notes.md` for leftover `TBD`, `TODO`, or `FIXME` placeholders. Ignore placeholders in later task sections that have not run yet.
 - Running the app is optional for review; if run, record the command and result in notes.
 
 ## codex_notes.md Update Instructions

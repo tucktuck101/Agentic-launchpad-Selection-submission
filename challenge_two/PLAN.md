@@ -29,7 +29,7 @@ Complete all Part 2 technical tasks and produce concrete material in `codex_note
 - Record commands, outputs, assumptions, blockers, and verification while working.
 - Keep `codex_notes.md` concrete: what was tried, what changed, what was checked, what remains.
 - Do not update `../agentic-launchpad-selection-submission.md` unless the user explicitly asks for a final-copy step.
-- Commit focused changes after each completed task.
+- Commit focused changes after each completed task during separate task runs. For the future single-run flow in `SINGLE_RUN_GOAL.md`, defer intermediate commits and produce one focused commit after all five tasks are complete.
 
 ## Task Folders
 
