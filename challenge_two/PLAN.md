@@ -1,11 +1,27 @@
 # Challenge Two Plan
 
+## Setup-Only Goal
+
+This plan was updated by a setup-only goal. The setup goal created task-level orchestration files and a future single-run prompt, but must not be treated as completed Challenge Two deliverable work.
+
+Setup artifacts:
+
+- `task_1_code_review/PLAN.md`
+- `task_2_clarifying_questions/PLAN.md`
+- `task_3_prd_to_tickets/PLAN.md`
+- `task_4_api_script/PLAN.md`
+- `task_5_failing_tests/PLAN.md`
+- `SINGLE_RUN_GOAL.md`
+
+Use `SINGLE_RUN_GOAL.md` as the exact future goal prompt when running all Challenge Two tasks in one pass.
+
 ## Goal
 
 Complete all Part 2 technical tasks and produce concrete material in `codex_notes.md` for the submission template. Because AI is being used extensively, attempt every task rather than choosing a subset.
 
 ## Working Principles
 
+- Before each task, re-check applicable instruction files from the repo root through the task folder, including `Agents.md`, `AGENTS.md`, `Agents.override.md`, `AGENTS.override.md`, and any applicable `.codex/config.toml` files if present.
 - Read the relevant brief in `../Challenge_info.md` before starting each task.
 - Follow `Agents.md` files at the repo root, `challenge_two/`, and the specific task folder.
 - Preserve the provided app structure unless a task explicitly requires a small code or test change.
@@ -17,15 +33,28 @@ Complete all Part 2 technical tasks and produce concrete material in `codex_note
 
 ## Task Folders
 
-- Code Review: `task_1_code_review/`
-- Clarifying Questions: `task_2_clarifying_questions/`
-- PRD To Tickets: `task_3_prd_to_tickets/`
-- API Script: `task_4_api_script/`
-- Failing Tests: `task_5_failing_tests/`
+- Code Review: `task_1_code_review/` with `task_1_code_review/PLAN.md`
+- Clarifying Questions: `task_2_clarifying_questions/` with `task_2_clarifying_questions/PLAN.md`
+- PRD To Tickets: `task_3_prd_to_tickets/` with `task_3_prd_to_tickets/PLAN.md`
+- API Script: `task_4_api_script/` with `task_4_api_script/PLAN.md`
+- Failing Tests: `task_5_failing_tests/` with `task_5_failing_tests/PLAN.md`
 
-Each task folder has its own `Agents.md`; read that file before starting work in the folder.
+Each task folder has its own `Agents.md`; read that file before starting work in the folder. If an override file appears later, follow the most specific applicable instruction.
 
 Use `codex_notes.md` as the canonical Challenge Two notes file. Update the relevant section after each task.
+
+## Future Single-Run Execution Flow
+
+1. Start with the exact prompt in `SINGLE_RUN_GOAL.md`.
+2. Inspect applicable root, challenge-level, and task-level instruction files and project config.
+3. Re-read this file before every task.
+4. Complete the five tasks in the order below.
+5. Before each task, re-read that task's `PLAN.md` and applicable instruction files.
+6. Update the relevant section of `codex_notes.md` after each task with evidence, commands, assumptions, and verification notes.
+7. Run practical verification after each task.
+8. Leave `../agentic-launchpad-selection-submission.md` untouched unless a future user explicitly asks for final-copy work.
+9. Avoid `../Original_Files/`, generated files, caches, and `node_modules/`.
+10. Produce one focused commit after all Challenge Two tasks are complete.
 
 ## Task Order
 
