@@ -49,3 +49,6 @@ What **Codex** would try next: Fix or classify the failing parcel tests, remove 
 Tools used: Codex, terminal commands, and GitHub Actions documentation.
 Where they helped: Codex helped inspect the repo, identify realistic checks from the actual package scripts and source files, draft the workflow, and capture notes in the submission.
 How I checked the output: I inspected the generated workflow, parsed the workflow as YAML, ran local equivalents where possible, confirmed Python syntax and the API smoke test, verified a clean temporary code-review app install/build, observed the known failing Node tests after a clean temporary install, and documented the limitation with checked-in `node_modules`.
+
+
+I've spent way more than an hour on part/challenge two, mostly because I was messing around with Codex's /goal functionality. its been interesting trying to corall it into doing it in a single pass. deciding to stop with the current state before I use up my tokens for the week...again.
