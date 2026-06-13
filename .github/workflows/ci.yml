@@ -25,11 +25,11 @@ jobs:
           test -f challenge_two/Agents.md
           test -f challenge_two/PLAN.md
           test -f challenge_two/codex_notes.md
-          test -f challenge_two/launchpad-code-review-app/Agents.md
-          test -f challenge_two/clarifying-questions/Agents.md
-          test -f challenge_two/prd-to-tickets/Agents.md
-          test -f challenge_two/launchpad-api-script-server/Agents.md
-          test -f challenge_two/failing-tests-app/Agents.md
+          test -f challenge_two/task_1_code_review/Agents.md
+          test -f challenge_two/task_2_clarifying_questions/Agents.md
+          test -f challenge_two/task_3_prd_to_tickets/Agents.md
+          test -f challenge_two/task_4_api_script/Agents.md
+          test -f challenge_two/task_5_failing_tests/Agents.md
 
       - name: Check Markdown for unresolved merge markers
         run: |
@@ -40,8 +40,8 @@ jobs:
             challenge_one/*.md \
             challenge_two/*.md \
             challenge_two/*/*.md \
-            challenge_two/launchpad-code-review-app/code-review-app/README.md \
-            challenge_two/launchpad-api-script-server/api-script-server/README.md; then
+            challenge_two/task_1_code_review/code-review-app/README.md \
+            challenge_two/task_4_api_script/api-script-server/README.md; then
             echo "Unresolved merge marker found in Markdown files."
             exit 1
           fi
@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: challenge_two/launchpad-code-review-app/code-review-app
+        working-directory: challenge_two/task_1_code_review/code-review-app
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -68,7 +68,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: challenge_two/launchpad-code-review-app/code-review-app/package-lock.json
+          cache-dependency-path: challenge_two/task_1_code_review/code-review-app/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: challenge_two/failing-tests-app
+        working-directory: challenge_two/task_5_failing_tests
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -94,7 +94,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: challenge_two/failing-tests-app/package-lock.json
+          cache-dependency-path: challenge_two/task_5_failing_tests/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -108,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: challenge_two/launchpad-api-script-server/api-script-server
+        working-directory: challenge_two/task_4_api_script/api-script-server
     steps:
       - name: Check out repository
         uses: actions/checkout@v6

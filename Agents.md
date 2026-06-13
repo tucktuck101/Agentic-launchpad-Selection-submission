@@ -9,11 +9,11 @@ This repository is an Agentic Launchpad selection submission workspace.
 - Do not modify anything inside `Original_Files/`.
 - Prefer small, local changes that preserve the structure of the provided materials.
 - If you need to inspect challenge two tasks, work in:
-  - `challenge_two/launchpad-code-review-app/`
-  - `challenge_two/clarifying-questions/`
-  - `challenge_two/prd-to-tickets/`
-  - `challenge_two/launchpad-api-script-server/`
-  - `challenge_two/failing-tests-app/`
+  - `challenge_two/task_1_code_review/`
+  - `challenge_two/task_2_clarifying_questions/`
+  - `challenge_two/task_3_prd_to_tickets/`
+  - `challenge_two/task_4_api_script/`
+  - `challenge_two/task_5_failing_tests/`
 
 ## Editing Rules
 

@@ -10,11 +10,11 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 - `Codex.log`: timestamped one-line summaries of Codex actions.
 - `challenge_two/PLAN.md`: high-level plan for the Part 2 technical work sample.
 - `challenge_two/codex_notes.md`: canonical staging notes for Challenge Two submission-ready material.
-- `challenge_two/launchpad-code-review-app/`: Express/React code review task.
-- `challenge_two/clarifying-questions/`: return-request clarification task.
-- `challenge_two/prd-to-tickets/`: return-request PRD ticket breakdown task.
-- `challenge_two/launchpad-api-script-server/`: tiny Python API and scripting task.
-- `challenge_two/failing-tests-app/`: Express failing-tests task.
+- `challenge_two/task_1_code_review/`: Express/React code review task.
+- `challenge_two/task_2_clarifying_questions/`: return-request clarification task.
+- `challenge_two/task_3_prd_to_tickets/`: return-request PRD ticket breakdown task.
+- `challenge_two/task_4_api_script/`: tiny Python API and scripting task.
+- `challenge_two/task_5_failing_tests/`: Express failing-tests task.
 - `Original_Files/`: original reference materials. Do not modify files in this folder.
 
 ## Setup Notes
@@ -61,12 +61,12 @@ test -f Agents.md
 test -f challenge_two/Agents.md
 test -f challenge_two/PLAN.md
 test -f challenge_two/codex_notes.md
-test -f challenge_two/launchpad-code-review-app/Agents.md
-test -f challenge_two/clarifying-questions/Agents.md
-test -f challenge_two/prd-to-tickets/Agents.md
-test -f challenge_two/launchpad-api-script-server/Agents.md
-test -f challenge_two/failing-tests-app/Agents.md
-if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/*.md challenge_two/*/*.md challenge_two/launchpad-code-review-app/code-review-app/README.md challenge_two/launchpad-api-script-server/api-script-server/README.md; then
+test -f challenge_two/task_1_code_review/Agents.md
+test -f challenge_two/task_2_clarifying_questions/Agents.md
+test -f challenge_two/task_3_prd_to_tickets/Agents.md
+test -f challenge_two/task_4_api_script/Agents.md
+test -f challenge_two/task_5_failing_tests/Agents.md
+if grep -RInE '^(<<<<<<<|=======|>>>>>>>)' -- README.md Challenge_info.md agentic-launchpad-selection-submission.md challenge_one/*.md challenge_two/*.md challenge_two/*/*.md challenge_two/task_1_code_review/code-review-app/README.md challenge_two/task_4_api_script/api-script-server/README.md; then
   echo "Unresolved merge marker found in Markdown files."
   exit 1
 fi
@@ -76,18 +76,18 @@ if git ls-files --error-unmatch Original_Files >/dev/null 2>&1; then
 fi
 
 # Code review app
-cd challenge_two/launchpad-code-review-app/code-review-app
+cd challenge_two/task_1_code_review/code-review-app
 npm ci
 node --check server/index.js
 npm exec -- vite build --outDir /tmp/code-review-app-dist --emptyOutDir
 
 # Failing tests app
-cd ../../failing-tests-app
+cd ../../task_5_failing_tests
 npm ci
 npm test
 
 # Python API
-cd ../launchpad-api-script-server/api-script-server
+cd ../task_4_api_script/api-script-server
 python3 -m py_compile server.py
 python3 server.py &
 server_pid=$!

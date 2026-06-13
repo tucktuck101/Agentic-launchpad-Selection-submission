@@ -81,7 +81,7 @@ If you use AI extensively, attempt all technical tasks. It is fine if you do not
 ### Code Review
 
 #### Task
-Review the small Express/React ecommerce app in `challenge_two/launchpad-code-review-app/` and spend around 20 to 30 minutes reviewing it. You do not need to fix the app.
+Review the small Express/React ecommerce app in `challenge_two/task_1_code_review/` and spend around 20 to 30 minutes reviewing it. You do not need to fix the app.
 
 #### Context
 The app lets a support team review ecommerce orders, filter by status, mark orders as contacted, and add an internal note.
@@ -169,7 +169,7 @@ Customers need to request a return for an order. Support staff need a simple way
 ### API Script
 
 #### Task
-Run the tiny Python API server in `challenge_two/launchpad-api-script-server/` locally, then write a script that consumes its endpoint.
+Run the tiny Python API server in `challenge_two/task_4_api_script/` locally, then write a script that consumes its endpoint.
 
 #### Run The Server
 
@@ -206,7 +206,7 @@ python3 server.py
 ### Failing Tests
 
 #### Task
-Work through the Express parcel-quote app in `challenge_two/failing-tests-app/`, run `npm test`, and work out which failures are code bugs and which tests are themselves wrong.
+Work through the Express parcel-quote app in `challenge_two/task_5_failing_tests/`, run `npm test`, and work out which failures are code bugs and which tests are themselves wrong.
 
 #### Run It
 

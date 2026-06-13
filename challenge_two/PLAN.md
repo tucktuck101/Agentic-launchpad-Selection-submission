@@ -17,11 +17,11 @@ Complete all Part 2 technical tasks and produce concrete material in `codex_note
 
 ## Task Folders
 
-- Code Review: `launchpad-code-review-app/`
-- Clarifying Questions: `clarifying-questions/`
-- PRD To Tickets: `prd-to-tickets/`
-- API Script: `launchpad-api-script-server/`
-- Failing Tests: `failing-tests-app/`
+- Code Review: `task_1_code_review/`
+- Clarifying Questions: `task_2_clarifying_questions/`
+- PRD To Tickets: `task_3_prd_to_tickets/`
+- API Script: `task_4_api_script/`
+- Failing Tests: `task_5_failing_tests/`
 
 Each task folder has its own `Agents.md`; read that file before starting work in the folder.
 
@@ -54,7 +54,7 @@ Use `codex_notes.md` as the canonical Challenge Two notes file. Update the relev
    - Include one clarifying question that still remains.
 
 4. API Script
-   - Run the Python API server locally from `launchpad-api-script-server/api-script-server/`.
+   - Run the Python API server locally from `task_4_api_script/api-script-server/`.
    - Write a small consumer script that fetches `/api/items`.
    - Filter items where `stock` is less than `reorderAt`.
    - Sort low-stock items by highest margin first.
@@ -63,7 +63,7 @@ Use `codex_notes.md` as the canonical Challenge Two notes file. Update the relev
    - Capture actual output, assumptions, and one next improvement.
 
 5. Failing Tests
-   - Run `npm test` in `failing-tests-app/` before editing.
+   - Run `npm test` in `task_5_failing_tests/` before editing.
    - Compare each failure with the product rules in the brief.
    - Classify failures as valid tests exposing code bugs or wrong/misleading tests.
    - Make minimal changes to align code and tests with the product rules.
