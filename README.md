@@ -17,16 +17,6 @@ This repository is a working space for an Agentic Launchpad selection challenge.
 
 Python and Docker can be used for the API script task. The Node-based tasks require Node.js and npm before their install, test, or dev commands can run.
 
-### Dev Container
-
-This repo includes a VS Code dev container configuration in `.devcontainer/devcontainer.json`. To use it, install Docker and the VS Code Dev Containers extension, then run:
-
-```text
-Dev Containers: Reopen in Container
-```
-
-The container includes Node.js, npm, Python 3.12, and Docker access. It installs dependencies for both Node apps after the container is created.
-
 Install project requirements on Debian/Ubuntu with:
 
 ```bash
